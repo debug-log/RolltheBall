@@ -1,8 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class Singleton<T> where T : class
+{
+    protected static T _instance = null;
+    public static T Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = System.Activator.CreateInstance (typeof (T)) as T;
+            }
+            return _instance;
+        }
+    }
+}
+
+public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static bool _shuttingDown = false;
     public static T _instance;
