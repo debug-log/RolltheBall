@@ -23,7 +23,7 @@ public class BlockMovement : MonoBehaviour
 
     private bool onMouseDown = false;
 
-    private void Start ()
+    public void Init ()
     {
         moveThreshold = 0.05f;
         moveState = MoveState.None;
@@ -59,7 +59,6 @@ public class BlockMovement : MonoBehaviour
             Vector2 position2d = transform.position;
             position2d += moveVelocity * deltaTime;
 
-            Debug.Log (Vector2.Distance (position2d, targetPosition));
             if(Vector2.Distance(position2d, targetPosition) < moveSpeed * deltaTime)
             {
                 moveState = MoveState.MoveEnd;

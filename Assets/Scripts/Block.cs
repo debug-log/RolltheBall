@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public BlockType blockType;
+    public DynamicBlockType dynamicBlockType;
 
-    // Update is called once per frame
-    void Update()
+    public Vector2 currentPosition;
+
+    private BlockMovement blockMovement;
+
+    public void Init(int x, int y)
     {
-        
+        blockType = BlockType.None;
+        dynamicBlockType = DynamicBlockType.None;
+
+        currentPosition = new Vector2 (x, y);
+        blockMovement.Init ();
     }
 }
