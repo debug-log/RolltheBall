@@ -979,23 +979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56d613feb0a9284cb55637a1216b488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blocks:
-  - {fileID: 1795082391}
-  - {fileID: 1505117475}
-  - {fileID: 788505455}
-  - {fileID: 1013473021}
-  - {fileID: 577496128}
-  - {fileID: 1385918683}
-  - {fileID: 1727903878}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &1348555579
 GameObject:
   m_ObjectHideFlags: 0

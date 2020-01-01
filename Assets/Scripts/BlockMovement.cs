@@ -15,6 +15,9 @@ public class BlockMovement : MonoBehaviour
     public float moveThreshold = 0.05f;
     public float moveSpeed = 2f;
 
+    private BlockManager blockManager;
+    private Block block;
+
     private Vector2 screenSize;
     private Vector2 moveVelocity;
     private Vector2 mousePositionDown;
@@ -27,6 +30,9 @@ public class BlockMovement : MonoBehaviour
     {
         moveThreshold = 0.05f;
         moveState = MoveState.None;
+
+        blockManager = StageManager.Instance.blockManager;
+        block = this.GetComponent<Block> ();
     }
 
     private void Update ()
@@ -143,13 +149,12 @@ public class BlockMovement : MonoBehaviour
         {
             if(diff.x > moveThreshold)
             {
-                Move (Direction.Right);
+                blockManager.Move (block, Direction.Right);
                 onMouseDown = false;
-
             }
             else if(diff.x < -moveThreshold)
             {
-                Move (Direction.Left);
+                blockManager.Move (block, Direction.Left);
                 onMouseDown = false;
             }
         }
@@ -157,12 +162,12 @@ public class BlockMovement : MonoBehaviour
         {
             if(diff.y > moveThreshold)
             {
-                Move (Direction.Up);
+                blockManager.Move (block, Direction.Up);
                 onMouseDown = false;
             }
             else if(diff.y < -moveThreshold)
             {
-                Move (Direction.Down);
+                blockManager.Move (block, Direction.Down);
                 onMouseDown = false;
             }
         }
