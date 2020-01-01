@@ -33,11 +33,19 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
             if(_instance == null)
             {
-                var singletonObject = new GameObject ();
-                _instance = singletonObject.AddComponent<T> ();
-                singletonObject.name = typeof (T).ToString () + " (Singleton)";
+                var singletonObject = GameObject.FindObjectOfType<T> ();
+                if (singletonObject != null)
+                {
+                    _instance = singletonObject;
+                }
+                else
+                {
+                    var newObject = new GameObject ();
+                    _instance = newObject.AddComponent<T> ();
+                    newObject.name = typeof (T).ToString () + " (Singleton)";
 
-                DontDestroyOnLoad (singletonObject);
+                    DontDestroyOnLoad (newObject);
+                }
             }
 
             return _instance;
