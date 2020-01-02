@@ -118,6 +118,13 @@ public class BlockMovement : MonoBehaviour
         return new Vector2 (Input.mousePosition.x / screenSize.x, Input.mousePosition.y / screenSize.y);
     }
 
+    public bool IsMoving()
+    {
+        if (this.moveState == MoveState.None)
+            return false;
+        return true;
+    }
+
     private void OnMouseDown ()
     {
         SetScreenSize ();

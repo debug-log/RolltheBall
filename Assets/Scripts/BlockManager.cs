@@ -27,21 +27,40 @@ public class BlockManager : MonoBehaviour
             if (block == null)
                 continue;
 
-            float posX = block.transform.localPosition.x;
-            float posY = block.transform.localPosition.y;
-            int col;
-            int row;
-
-            if(!IsValidPosition(posX, posY, out col, out row))
+            //위치 세팅
             {
-                continue;
+                float posX = block.transform.localPosition.x;
+                float posY = block.transform.localPosition.y;
+                int x;
+                int y;
+
+                if (!IsValidPosition (posX, posY, out x, out y))
+                {
+                    continue;
+                }
+
+                SetBlock (block, x, y);
             }
 
-            SetBlock (block, col, row);
+            //블록 타입설정
+            {
+                var blockSpriteRenderer = block.GetComponent<SpriteRenderer> ();
+                if (blockSpriteRenderer == null)
+                    continue;
+
+                var blockSpriteName = blockSpriteRenderer.sprite.name;
+                var blockInfo = SpriteBlockInfo.GetSpriteBlockEnum (blockSpriteName);
+
+                var blockType = SpriteBlockInfo.GetBlockType (blockInfo);
+                var blockDirectionType = SpriteBlockInfo.GetBlockDirectionType (blockInfo);
+
+                block.SetBlockType (blockType);
+                block.SetBlockDirectionType (blockDirectionType);
+            }
         }
     }
 
-    private bool IsValidPosition(float x, float y, out int col, out int row)
+    private bool IsValidPosition(float x, float y, out int ox, out int oy)
     {
         int i = 0;
         int j = 0;
@@ -58,8 +77,8 @@ public class BlockManager : MonoBehaviour
 
         if(valid == false)
         {
-            col = -1;
-            row = -1;
+            ox = -1;
+            oy = -1;
             return false;
         }
 
@@ -76,37 +95,37 @@ public class BlockManager : MonoBehaviour
 
         if (valid == false)
         {
-            col = -1;
-            row = -1;
+            ox = -1;
+            oy = -1;
             return false;
         }
 
-        col = i;
-        row = j;
+        ox = i;
+        oy = j;
         return true;
     }
 #endif
 
-    public void SetBlock (Block target, int col, int row)
+    public void SetBlock (Block target, int x, int y)
     {
-        int index = row * 4 + col;
+        int index = y * 4 + x;
         if (index > blocks.Length)
             return;
         blocks[index] = target;
-        target.SetPosition (col, row);
+        target.SetPosition (x, y);
     }
 
-    public void UnsetBlock (int col, int row)
+    public void UnsetBlock (int x, int y)
     {
-        int index = row * 4 + col;
+        int index = y * 4 + x;
         if (index > blocks.Length)
             return;
         blocks[index] = null;
     }
 
-    public Block GetBlock (int col, int row)
+    public Block GetBlock (int x, int y)
     {
-        int index = row * 4 + col;
+        int index = y * 4 + x;
         if (index > blocks.Length)
             return null;
         return blocks[index];
@@ -114,6 +133,12 @@ public class BlockManager : MonoBehaviour
 
     public void Move(Block block, Direction direction)
     {
+        if (block.blockType != BlockType.Dynamic)
+            return;
+
+        if (block.blockMovement.IsMoving () == true)
+            return;
+
         int cx = (int)block.currentPosition.x;
         int cy = (int)block.currentPosition.y;
 

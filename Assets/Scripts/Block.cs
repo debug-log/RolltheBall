@@ -5,7 +5,7 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     public BlockType blockType;
-    public DynamicBlockType dynamicBlockType;
+    public BlockDirectionType blockDirectionType;
 
     public Vector2 currentPosition;
     public BlockMovement blockMovement;
@@ -14,8 +14,8 @@ public class Block : MonoBehaviour
 
     public void Init(int x, int y)
     {
-        blockType = BlockType.None;
-        dynamicBlockType = DynamicBlockType.None;
+        blockType = BlockType.Null;
+        blockDirectionType = BlockDirectionType.Null;
 
         currentPosition = new Vector2 (x, y);
 
@@ -38,5 +38,15 @@ public class Block : MonoBehaviour
             Init (x, y);
             initialized = true;
         }
+    }
+
+    public void SetBlockType (BlockType blockType)
+    {
+        this.blockType = blockType;
+    }
+
+    public void SetBlockDirectionType(BlockDirectionType blockDirectionType)
+    {
+        this.blockDirectionType = blockDirectionType;
     }
 }

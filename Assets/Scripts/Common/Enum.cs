@@ -14,20 +14,24 @@ public enum Direction
 
 public enum BlockType
 {
-    None,
+    Null,
     Dynamic,
     Static,
     StartPoint,
     EndPoint
 }
 
-public enum DynamicBlockType
+public enum BlockDirectionType
 {
-    None,
+    Null,
     Vertical,
     Horizontal,
     UpAndRight,
     UpAndLeft,
     DownAndRight,
     DownAndLeft,
+    Up,
+    Down,
+    Left,
+    Right
 }
