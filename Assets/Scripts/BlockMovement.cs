@@ -49,6 +49,8 @@ public class BlockMovement : MonoBehaviour
 
         if(moveState == MoveState.MoveEnd)
         {
+            blockManager.MoveEnd ();
+
             moveState = MoveState.None;
             targetPosition = Vector2.zero;
             return;

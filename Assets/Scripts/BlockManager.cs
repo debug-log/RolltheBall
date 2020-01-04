@@ -8,6 +8,8 @@ public class BlockManager : MonoBehaviour
     public static float BLOCK_HEIGHT = 1.0f;
 
     private Block[] blocks = new Block[16];
+    private Block startPoint = null;
+    private Block endPoint = null;
     
     public void Init ()
     {
@@ -53,6 +55,16 @@ public class BlockManager : MonoBehaviour
 
                 var blockType = SpriteBlockInfo.GetBlockType (blockInfo);
                 var blockDirectionType = SpriteBlockInfo.GetBlockDirectionType (blockInfo);
+
+                if (blockType == BlockType.StartPoint)
+                {
+                    this.startPoint = block;
+                }
+
+                if (blockType == BlockType.EndPoint)
+                {
+                    this.endPoint = block;
+                }
 
                 block.SetBlockType (blockType);
                 block.SetBlockDirectionType (blockDirectionType);
@@ -106,6 +118,152 @@ public class BlockManager : MonoBehaviour
     }
 #endif
 
+    private bool CheckSolutionFound()
+    {
+        var curBlock = startPoint;
+        Direction fromDirection = Direction.Null;
+        int whileIterCount = 0;
+
+        while (curBlock != null && whileIterCount < 20)
+        {
+            var x = (int)curBlock.currentPosition.x;
+            var y = (int)curBlock.currentPosition.y;
+            var direction = curBlock.blockDirectionType;
+            
+            Block nextBlock = null;
+
+            if (curBlock.Equals (endPoint))
+            {
+                return true;
+            }
+            else if(curBlock.Equals(startPoint))
+            {
+                switch(direction)
+                {
+                    case BlockDirectionType.Left:
+                        nextBlock = GetBlock (x - 1, y);
+                        fromDirection = Direction.Right;
+                        break;
+                    case BlockDirectionType.Right:
+                        nextBlock = GetBlock (x + 1, y);
+                        fromDirection = Direction.Left;
+                        break;
+                    case BlockDirectionType.Up:
+                        nextBlock = GetBlock (x, y + 1);
+                        fromDirection = Direction.Down;
+                        break;
+                    case BlockDirectionType.Down:
+                        nextBlock = GetBlock (x, y - 1);
+                        fromDirection = Direction.Up;
+                        break;
+                    default:
+                        nextBlock = null;
+                        fromDirection = Direction.Null;
+                        break;
+                }
+            }
+            else
+            {
+                switch (direction)
+                {
+                    case BlockDirectionType.Vertical:
+                        {
+                            if (fromDirection == Direction.Up)
+                            {
+                                nextBlock = GetBlock (x, y - 1);
+                                fromDirection = Direction.Up;
+                            }
+                            else if(fromDirection == Direction.Down)
+                            {
+                                nextBlock = GetBlock (x, y + 1);
+                                fromDirection = Direction.Down;
+                            }
+                        }
+                        break;
+                    case BlockDirectionType.Horizontal:
+                        {
+                            if (fromDirection == Direction.Left)
+                            {
+                                nextBlock = GetBlock (x + 1, y);
+                                fromDirection = Direction.Left;
+                            }
+                            else if (fromDirection == Direction.Right)
+                            {
+                                nextBlock = GetBlock (x - 1, y);
+                                fromDirection = Direction.Right;
+                            }
+                        }
+                        break;
+                    case BlockDirectionType.UpAndLeft:
+                        {
+                            if (fromDirection == Direction.Up)
+                            {
+                                nextBlock = GetBlock (x - 1, y);
+                                fromDirection = Direction.Right;
+                            }
+                            else if (fromDirection == Direction.Left)
+                            {
+                                nextBlock = GetBlock (x, y + 1);
+                                fromDirection = Direction.Down;
+                            }
+                        }
+                        break;
+                    case BlockDirectionType.UpAndRight:
+                        {
+                            if (fromDirection == Direction.Up)
+                            {
+                                nextBlock = GetBlock (x + 1, y);
+                                fromDirection = Direction.Left;
+                            }
+                            else if (fromDirection == Direction.Right)
+                            {
+                                nextBlock = GetBlock (x, y + 1);
+                                fromDirection = Direction.Down;
+                            }
+                        }
+                        break;
+                    case BlockDirectionType.DownAndLeft:
+                        {
+                            if (fromDirection == Direction.Down)
+                            {
+                                nextBlock = GetBlock (x - 1, y);
+                                fromDirection = Direction.Right;
+                            }
+                            else if (fromDirection == Direction.Left)
+                            {
+                                nextBlock = GetBlock (x, y - 1);
+                                fromDirection = Direction.Up;
+                            }
+                        }
+                        break;
+                    case BlockDirectionType.DownAndRight:
+                        {
+                            if (fromDirection == Direction.Down)
+                            {
+                                nextBlock = GetBlock (x + 1, y);
+                                fromDirection = Direction.Left;
+                            }
+                            else if (fromDirection == Direction.Right)
+                            {
+                                nextBlock = GetBlock (x, y - 1);
+                                fromDirection = Direction.Up;
+                            }
+                        }
+                        break;
+                    default:
+                        nextBlock = null;
+                        fromDirection = Direction.Null;
+                        break;
+                }
+            }
+
+            curBlock = nextBlock;
+            whileIterCount++;
+        }
+        
+        return false;
+    }
+
     public void SetBlock (Block target, int x, int y)
     {
         int index = y * 4 + x;
@@ -118,7 +276,7 @@ public class BlockManager : MonoBehaviour
     public void UnsetBlock (int x, int y)
     {
         int index = y * 4 + x;
-        if (index > blocks.Length)
+        if (index > blocks.Length || index < 0)
             return;
         blocks[index] = null;
     }
@@ -126,7 +284,7 @@ public class BlockManager : MonoBehaviour
     public Block GetBlock (int x, int y)
     {
         int index = y * 4 + x;
-        if (index > blocks.Length)
+        if (index > blocks.Length || index < 0)
             return null;
         return blocks[index];
     }
@@ -176,5 +334,11 @@ public class BlockManager : MonoBehaviour
 
         UnsetBlock (cx, cy);
         SetBlock (block, tx, ty);
+    }
+
+    public void MoveEnd()
+    {
+        bool isSolution = CheckSolutionFound ();
+        Debug.Log (isSolution);
     }
 }
