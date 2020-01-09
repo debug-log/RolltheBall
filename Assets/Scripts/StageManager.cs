@@ -8,6 +8,7 @@ public class StageManager : MonoSingleton<StageManager>
     public string stageDataPath = string.Empty;
 
     public BlockManager blockManager;
+    public Ball ball;
 
     private void Start ()
     {
@@ -42,5 +43,10 @@ public class StageManager : MonoSingleton<StageManager>
     private void SetupStageReadFromCsv()
     {
 
+    }
+
+    public void InvokeStageEndEvent()
+    {
+        Debug.Log ("Success");
     }
 }

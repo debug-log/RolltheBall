@@ -8,9 +8,12 @@ public class BlockManager : MonoBehaviour
     public static float BLOCK_HEIGHT = 1.0f;
 
     private Block[] blocks = new Block[16];
+
     private Block startPoint = null;
     private Block endPoint = null;
-    
+
+    private List<Block> pathSolution = new List<Block> ();
+
     public void Init ()
     {
 
@@ -122,6 +125,7 @@ public class BlockManager : MonoBehaviour
     {
         var curBlock = startPoint;
         Direction fromDirection = Direction.Null;
+        pathSolution.Clear ();
         int whileIterCount = 0;
 
         while (curBlock != null && whileIterCount < 20)
@@ -129,7 +133,9 @@ public class BlockManager : MonoBehaviour
             var x = (int)curBlock.currentPosition.x;
             var y = (int)curBlock.currentPosition.y;
             var direction = curBlock.blockDirectionType;
-            
+
+            pathSolution.Add (curBlock);
+
             Block nextBlock = null;
 
             if (curBlock.Equals (endPoint))
@@ -339,6 +345,72 @@ public class BlockManager : MonoBehaviour
     public void MoveEnd()
     {
         bool isSolution = CheckSolutionFound ();
-        Debug.Log (isSolution);
+
+        if(isSolution)
+        {
+            var pathPoints = ProcBlocksToPathPoint (pathSolution);
+            StageManager.Instance.ball.StartAlongPath (pathPoints);
+        }
+    }
+
+    private List<PathPoint> ProcBlocksToPathPoint(List<Block> blocks)
+    {
+        List<PathPoint> pathPoints = new List<PathPoint> ();
+
+        foreach(var block in blocks)
+        {
+            var blockType = block.blockType;
+            var directionType = block.blockDirectionType;
+
+            PathPoint pathPoint = null;
+            Vector2 pivotPoint = Vector2.zero;
+            bool hasPivot = false;
+
+            if(blockType == BlockType.StartPoint)
+            {
+                pivotPoint = Vector2.zero;
+                hasPivot = false;
+            }
+            else if(blockType == BlockType.EndPoint)
+            {
+                pivotPoint = Vector2.zero;
+                hasPivot = false;
+            }
+            else
+            {
+                switch(directionType)
+                {
+                    case BlockDirectionType.UpAndLeft:
+                        pivotPoint = block.transform.localPosition;
+                        pivotPoint += new Vector2 (-BLOCK_WIDTH * 0.5f, BLOCK_HEIGHT * 0.5f);
+                        hasPivot = true;
+                        break;
+                    case BlockDirectionType.UpAndRight:
+                        pivotPoint = block.transform.localPosition;
+                        pivotPoint += new Vector2 (BLOCK_WIDTH * 0.5f, BLOCK_HEIGHT * 0.5f);
+                        hasPivot = true;
+                        break;
+                    case BlockDirectionType.DownAndLeft:
+                        pivotPoint = block.transform.localPosition;
+                        pivotPoint += new Vector2 (-BLOCK_WIDTH * 0.5f, -BLOCK_HEIGHT * 0.5f);
+                        hasPivot = true;
+                        break;
+                    case BlockDirectionType.DownAndRight:
+                        pivotPoint = block.transform.localPosition;
+                        pivotPoint += new Vector2 (BLOCK_WIDTH * 0.5f, -BLOCK_HEIGHT * 0.5f);
+                        hasPivot = true;
+                        break;
+                    default:
+                        pivotPoint = Vector2.zero;
+                        hasPivot = false;
+                        break;
+                }
+            }
+
+            pathPoint = new PathPoint (block.transform.localPosition, pivotPoint, hasPivot);
+            pathPoints.Add (pathPoint);
+        }
+
+        return pathPoints;
     }
 }
