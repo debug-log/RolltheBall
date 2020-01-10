@@ -7,12 +7,17 @@ public class BlockManager : MonoBehaviour
     public static float BLOCK_WIDTH = 1.0f;
     public static float BLOCK_HEIGHT = 1.0f;
 
+    private const float SOLUTION_READY_SECONDS = 1.0f;
+
     private Block[] blocks = new Block[16];
 
     private Block startPoint = null;
     private Block endPoint = null;
 
     private List<Block> pathSolution = new List<Block> ();
+    private bool isSolution = false;
+    private bool completeSolution = false;
+    private float readyGameEndSeconds = 0f;
 
     public void Init ()
     {
@@ -71,6 +76,36 @@ public class BlockManager : MonoBehaviour
 
                 block.SetBlockType (blockType);
                 block.SetBlockDirectionType (blockDirectionType);
+            }
+        }
+    }
+
+    private void Update ()
+    {
+        if(isSolution == true && completeSolution == false)
+        {
+            readyGameEndSeconds += Time.deltaTime;
+            if(readyGameEndSeconds >= SOLUTION_READY_SECONDS)
+            {
+                completeSolution = true;
+
+                BeginMoveBall ();
+
+                return;
+            }
+        }
+    }
+
+    private void BeginMoveBall()
+    {
+        var pathPoints = ProcBlocksToPathPoint (pathSolution);
+        StageManager.Instance.ball.StartAlongPath (pathPoints);
+
+        foreach(var block in blocks)
+        {
+            if(block != null)
+            {
+                block.blockMovement.enabled = false;
             }
         }
     }
@@ -344,13 +379,8 @@ public class BlockManager : MonoBehaviour
 
     public void MoveEnd()
     {
-        bool isSolution = CheckSolutionFound ();
-
-        if(isSolution)
-        {
-            var pathPoints = ProcBlocksToPathPoint (pathSolution);
-            StageManager.Instance.ball.StartAlongPath (pathPoints);
-        }
+        isSolution = CheckSolutionFound ();
+        readyGameEndSeconds = 0f;
     }
 
     private List<PathPoint> ProcBlocksToPathPoint(List<Block> blocks)
