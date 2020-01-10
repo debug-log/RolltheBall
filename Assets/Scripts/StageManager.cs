@@ -10,6 +10,8 @@ public class StageManager : MonoSingleton<StageManager>
     public BlockManager blockManager;
     public Ball ball;
 
+    private int numStars = 0;
+
     private void Start ()
     {
         SetupStage ();
@@ -48,5 +50,15 @@ public class StageManager : MonoSingleton<StageManager>
     public void InvokeStageEndEvent()
     {
         Debug.Log ("Success");
+    }
+
+    public int GetNumStars()
+    {
+        return this.numStars;
+    }
+
+    public void IncreaseNumStars()
+    {
+        this.numStars++;
     }
 }

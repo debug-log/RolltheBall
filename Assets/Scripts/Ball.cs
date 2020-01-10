@@ -43,6 +43,12 @@ public class Ball : MonoBehaviour
         if(star != null)
         {
             star.GetStar ();
+
+            var stageManager = StageManager.Instance;
+            UIManager.Instance.GetStar (stageManager.GetNumStars());
+            stageManager.IncreaseNumStars ();
+
+            star.enabled = false;
         }
     }
 

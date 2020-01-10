@@ -18,7 +18,6 @@ public abstract class Singleton<T> where T : class
 
 public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static bool _shuttingDown = false;
     public static T _instance;
 
     public static T Instance
