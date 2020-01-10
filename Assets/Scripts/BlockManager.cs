@@ -156,6 +156,7 @@ public class BlockManager : MonoBehaviour
     }
 #endif
 
+
     private bool CheckSolutionFound()
     {
         var curBlock = startPoint;
