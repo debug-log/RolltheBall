@@ -25,12 +25,6 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-            if(_shuttingDown)
-            {
-                Debug.LogWarning ("[Singleton] Instance '" + typeof (T) + "' already destroyed. Returning null.");
-                return null;
-            }
-
             if(_instance == null)
             {
                 var singletonObject = GameObject.FindObjectOfType<T> ();
@@ -50,15 +44,5 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
             return _instance;
         }
-    }
-
-    private void OnApplicationQuit ()
-    {
-        _shuttingDown = true;
-    }
-
-    private void OnDestroy ()
-    {
-        _shuttingDown = true;
     }
 }
