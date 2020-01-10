@@ -37,6 +37,15 @@ public class Ball : MonoBehaviour
         Move (curPathPoint);
     }
 
+    private void OnTriggerEnter2D (Collider2D collision)
+    {
+        var star = collision.gameObject.GetComponent<Star> ();
+        if(star != null)
+        {
+            star.GetStar ();
+        }
+    }
+
     private void Move(PathPoint pathPoint)
     {
         Vector2 curPosition = transform.localPosition;
