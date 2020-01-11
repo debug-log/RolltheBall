@@ -2,7 +2,8 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/[Aa]ssets/Sprites/
+/[Aa]ssets/[Ss]prites/
+/[Aa]ssets/[Rr]esources/
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
