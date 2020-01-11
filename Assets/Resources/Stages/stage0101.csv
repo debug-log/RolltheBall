@@ -1,0 +1,17 @@
+block_n
+null
+null
+null
+block_ur,[star,0.1,0.2]
+block_h
+block_h_fix,[star,0,0.2]
+block_ul_fix
+block_v
+block_r_goal,[goal,-0.05,0.15]
+block_ul
+block_v_fix
+block_d_start
+block_dr
+null
+block_dl,[star,-0.1,0]
+

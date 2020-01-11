@@ -12,6 +12,8 @@ public class UIManager : MonoSingleton<UIManager>
     public UIImageSwitcher imagePause;
     public UIImageSwitcher[] imageStars;
 
+    public UIPopup popupClear;
+
     private void Start ()
     {
         btnPause.onClick.AddListener (OnClickPauseButton);

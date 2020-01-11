@@ -9,7 +9,7 @@ public class Ball : MonoBehaviour
     Vector2 pivot = Vector2.zero;
 
     Vector2 velocity = Vector2.zero;
-    const float SPEED = 1f;
+    const float SPEED = 2f;
 
     float speed = SPEED;
     float radius = BlockManager.BLOCK_WIDTH * 0.5f;

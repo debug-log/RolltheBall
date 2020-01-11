@@ -7,7 +7,7 @@ public class BlockManager : MonoBehaviour
     public static float BLOCK_WIDTH = 1.0f;
     public static float BLOCK_HEIGHT = 1.0f;
 
-    private const float SOLUTION_READY_SECONDS = 1.0f;
+    private const float SOLUTION_READY_SECONDS = 0.5f;
 
     private Block[] blocks = new Block[16];
 
