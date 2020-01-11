@@ -19,9 +19,118 @@ public class BlockManager : MonoBehaviour
     private bool completeSolution = false;
     private float readyGameEndSeconds = 0f;
 
-    public void Init ()
+    public void Init (string stageDataPath)
     {
+        if(string.IsNullOrEmpty(stageDataPath) == true)
+        {
+            return;
+        }
 
+        var csvFile = Resources.Load (string.Format ("Stages/{0}", stageDataPath)) as TextAsset;
+        if(csvFile == null)
+        {
+            return;
+        }
+
+        var lines = csvFile.text.Split ('\n');
+        int index = 0;
+        bool continued = false;
+        foreach(var line in lines)
+        {
+            if(continued == true)
+            {
+                continued = false;
+                index++;
+            }
+
+            if (index >= 16)
+            {
+                break;
+            }
+
+            var replacedLine = line.Replace ("\r", "");
+            if (string.IsNullOrEmpty(replacedLine) || replacedLine.Equals("null"))
+            {
+                continued = true;
+                continue;
+            }
+
+            var datas = replacedLine.Split (new char[] { ',' }, 2);
+            string data = string.Empty;
+            string subData = string.Empty;
+
+            if (datas.Length >= 1) data = datas[0];
+            if (datas.Length >= 2) subData = datas[1];
+
+            var spriteName = data;
+            int col = index % 4;
+            int row = index / 4;
+
+            GameObject prefabBlock = Resources.Load ("Prefabs/Block") as GameObject;
+            GameObject instObject = null;
+            if (prefabBlock == null)
+            {
+                continued = true;
+                continue;
+            }
+            
+            instObject = GameObject.Instantiate (prefabBlock, this.transform, false);
+            instObject.transform.localPosition = new Vector2 (-1.5f + BLOCK_WIDTH * col, -1.5f + BLOCK_HEIGHT * row);
+
+            Sprite sprite = Resources.Load<Sprite> (string.Format ("Blocks/{0}", spriteName));
+
+            if (sprite == null)
+            {
+                continued = true;
+                continue;
+            }
+
+            if (instObject.GetComponent<SpriteRenderer> () != null)
+            {
+                instObject.GetComponent<SpriteRenderer> ().sprite = sprite;
+            }
+
+            if (string.IsNullOrEmpty(subData) == false)
+            {
+                subData = subData.Replace ("[", "").Replace ("]", "");
+                var subDatas = subData.Split (',');
+
+                if(subDatas.Length == 3)
+                {
+                    var type = subDatas[0];
+                    var posX = float.Parse (subDatas[1]);
+                    var posY = float.Parse (subDatas[2]);
+
+                    GameObject subInstObject = null;
+
+                    if (type.Equals("goal"))
+                    {
+                        GameObject prefabGoal = Resources.Load ("Prefabs/Goal") as GameObject;
+                        if(prefabGoal != null)
+                        {
+                            subInstObject = GameObject.Instantiate (prefabGoal, instObject.transform, false);
+                        }
+                    }
+                    else if(type.Equals("star"))
+                    {
+                        GameObject prefabStar = Resources.Load ("Prefabs/Star") as GameObject;
+                        if (prefabStar != null)
+                        {
+                            subInstObject = GameObject.Instantiate (prefabStar, instObject.transform, false);
+                        }
+                    }
+
+                    if(subInstObject != null)
+                    {
+                        subInstObject.transform.localPosition = new Vector2 (posX, posY);
+                    }
+                }
+            }
+
+            index++;
+        }
+
+        InitFromScene ();
     }
 
 #if UNITY_EDITOR
@@ -67,6 +176,7 @@ public class BlockManager : MonoBehaviour
                 if (blockType == BlockType.StartPoint)
                 {
                     this.startPoint = block;
+                    StageManager.Instance.ball.transform.position = block.transform.position;
                 }
 
                 if (blockType == BlockType.EndPoint)

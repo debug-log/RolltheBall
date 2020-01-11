@@ -44,7 +44,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     private void SetupStageReadFromCsv()
     {
-
+        blockManager.Init (stageDataPath);
     }
 
     public void InvokeStageEndEvent()
