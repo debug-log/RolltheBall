@@ -44,7 +44,12 @@ public class StageManager : MonoSingleton<StageManager>
 
     private void SetupStageReadFromCsv()
     {
+        if(string.IsNullOrEmpty(stageDataPath) == true)
+        {
+            stageDataPath = Player.Instance.GetPlayerSelectedStageName ();
+        }
         blockManager.Init (stageDataPath);
+        UIManager.Instance.SetStageText (stageDataPath);
     }
 
     public void InvokeStageEndEvent()

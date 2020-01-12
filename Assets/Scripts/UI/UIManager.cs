@@ -13,11 +13,23 @@ public class UIManager : MonoSingleton<UIManager>
     public UIImageSwitcher[] imageStars;
 
     public UIPopup popupClear;
+    public Text textStageId;
 
     private void Start ()
     {
         btnPause.onClick.AddListener (OnClickPauseButton);
         btnReset.onClick.AddListener (OnClickResetButton);
+    }
+
+    public void SetStageText(string stageName)
+    {
+        if(stageName.StartsWith("stage"))
+        {
+            var stageNum = int.Parse(stageName.Substring (5));
+            textStageId.text = string.Format ("{0}-{1}", stageNum / 100, stageNum % 100);
+            return;
+        }
+        textStageId.text = stageName;
     }
 
     public void GetStar(int index)

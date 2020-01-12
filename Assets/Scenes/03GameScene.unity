@@ -791,6 +791,7 @@ MonoBehaviour:
   - {fileID: 345655061}
   - {fileID: 213055338}
   popupClear: {fileID: 1554118765}
+  textStageId: {fileID: 1862582399}
 --- !u!114 &420308009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1323,7 +1324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageDataType: 1
-  stageDataPath: stage0101
+  stageDataPath: 
   blockManager: {fileID: 1217056390}
   ball: {fileID: 350246235}
 --- !u!4 &672495006
