@@ -14,7 +14,7 @@ public class Player : Singleton<Player>
         playerData.stageDatas = new List<StageData> ();
 
         //나중에 파일로 초기화하도록 변경
-        for(int stageId = 101; stageId <= 130; stageId++)
+        for(int stageId = 101; stageId <= 120; stageId++)
         {
             playerData.stageDatas.Add (new StageData (stageId));
         }
@@ -34,6 +34,11 @@ public class Player : Singleton<Player>
     public void SavePlayerData()
     {
         DataManager.SaveData<PlayerData> (playerData, "player.dat");
+    }
+
+    public void ResetPlayerData()
+    {
+        InitPlayerData ();
     }
 
     public int GetPlayerSelectedStageId()
