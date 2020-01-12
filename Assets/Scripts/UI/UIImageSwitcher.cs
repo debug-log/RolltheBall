@@ -12,7 +12,7 @@ public class UIImageSwitcher : MonoBehaviour
 
     private Image image;
 
-    private void Start ()
+    private void Awake ()
     {
         this.image = this.GetComponent<Image> ();
         SetImageDefault ();

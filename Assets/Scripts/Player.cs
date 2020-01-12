@@ -16,6 +16,13 @@ public class Player : Singleton<Player>
         //나중에 파일로 초기화하도록 변경
         for(int stageId = 101; stageId <= 120; stageId++)
         {
+            if(stageId == 101)
+            {
+                var stageData = new StageData (stageId);
+                stageData.cleared = true;
+                playerData.stageDatas.Add (stageData);
+                continue;
+            }
             playerData.stageDatas.Add (new StageData (stageId));
         }
 
@@ -46,6 +53,11 @@ public class Player : Singleton<Player>
         return selectedStageId;
     }
 
+    public int GetPlayerSelectedMainStageId ()
+    {
+        return selectedStageId / 100;
+    }
+
     public string GetPlayerSelectedStageName ()
     {
         return string.Format("stage{0:D4}", selectedStageId);
@@ -54,6 +66,21 @@ public class Player : Singleton<Player>
     public void SetPlayerSelectedStageId(int stageId)
     {
         this.selectedStageId = stageId;
+    }
+
+    public List<StageData> GetPlayerStageDataList(int mainStage)
+    {
+        List<StageData> stageData = new List<StageData> ();
+
+        foreach(var data in playerData.stageDatas)
+        {
+            if(data.stageId / 100 == mainStage)
+            {
+                stageData.Add (data);
+            }
+        }
+
+        return stageData;
     }
 }
 
