@@ -14,4 +14,9 @@ public class UIPopup : MonoBehaviour
     {
         this.gameObject.SetActive (false);
     }
+
+    public bool IsOpened()
+    {
+        return this.gameObject.activeSelf;
+    }
 }

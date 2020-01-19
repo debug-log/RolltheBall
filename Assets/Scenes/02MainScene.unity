@@ -1616,7 +1616,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uACE0\uC591\uC774\uAC00 \uB9CE\uC740 \uACE8\uBAA9"
+  m_Text: '-'
 --- !u!222 &927465245
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1678,6 +1678,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777577d09285c5d498ed94dde79916df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backBtn: {fileID: 1778172242}
+  textStageTitle: {fileID: 927465244}
   stageBoxes:
   - {fileID: 1536914302}
   - {fileID: 1165395279}

@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SceneMain : MonoBehaviour
 {
     public Button backBtn;
+    public Text textStageTitle;
     public UIStageBox[] stageBoxes;
 
     private void Start ()
     {
         Player.Instance.ResetPlayerData ();
         Player.Instance.LoadPlayerData ();
+
+        textStageTitle.text = StageInfo.Instance.GetMainStageName (Player.Instance.GetPlayerSelectedMainStageId ());
 
         var stageDatas = Player.Instance.GetPlayerStageDataList (Player.Instance.GetPlayerSelectedMainStageId ());
         for (int i = 0; i < stageDatas.Count && i < stageBoxes.Length; i++) 
@@ -43,6 +47,6 @@ public class SceneMain : MonoBehaviour
 
     private void OnClickBackButton()
     {
-
+        SceneManager.LoadScene (SceneName.SCENE_TITLE);
     }
 }

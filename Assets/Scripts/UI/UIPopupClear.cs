@@ -4,9 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class UIPopupClear : UIPopup
 {
+    public UIImageSwitcher[] imageStars;
+
     public Button btnRetry;
     public Button btnExit;
     public Button btnNext;
+
+    public void Activate (int numStars)
+    {
+        this.gameObject.SetActive (true);
+
+        for (int i = 0; i < numStars && i < imageStars.Length; i++)
+        {
+            imageStars[i].SetImageChanged ();
+        }
+    }
 
     private void Start ()
     {
@@ -22,7 +34,7 @@ public class UIPopupClear : UIPopup
 
     private void OnClickExitButton ()
     {
-
+        SceneManager.LoadScene (SceneName.SCENE_MAIN);
     }
 
     private void OnClickNextButton()

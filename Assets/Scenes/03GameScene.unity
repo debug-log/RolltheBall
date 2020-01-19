@@ -376,8 +376,9 @@ GameObject:
   - component: {fileID: 310591091}
   - component: {fileID: 310591093}
   - component: {fileID: 310591092}
+  - component: {fileID: 310591094}
   m_Layer: 5
-  m_Name: Can1
+  m_Name: Star1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -395,7 +396,7 @@ RectTransform:
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 1000040168}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -415,7 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.44705883, g: 0.46666667, b: 0.5686275, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -439,6 +440,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 310591090}
   m_CullTransparentMesh: 0
+--- !u!114 &310591094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310591090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0fa1492096c2e42aae9fff11c4aac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteDefault: {fileID: 21300000, guid: 77ec977f6cdcc4522b454eda61a4a5fe, type: 3}
+  spriteChanged: {fileID: 21300000, guid: 566d04e0a7efe46efbfdc5b9a32a133e, type: 3}
+  changeColorEnable: 1
+  colorDefault: {r: 0.44705883, g: 0.46666667, b: 0.5686275, a: 1}
+  colorChanged: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &345655057
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,8 +1091,9 @@ GameObject:
   - component: {fileID: 566125690}
   - component: {fileID: 566125692}
   - component: {fileID: 566125691}
+  - component: {fileID: 566125693}
   m_Layer: 5
-  m_Name: Can3
+  m_Name: Star3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1112,7 +1131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.44705883, g: 0.46666667, b: 0.5686275, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1136,6 +1155,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 566125689}
   m_CullTransparentMesh: 0
+--- !u!114 &566125693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566125689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0fa1492096c2e42aae9fff11c4aac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteDefault: {fileID: 21300000, guid: 77ec977f6cdcc4522b454eda61a4a5fe, type: 3}
+  spriteChanged: {fileID: 21300000, guid: 566d04e0a7efe46efbfdc5b9a32a133e, type: 3}
+  changeColorEnable: 1
+  colorDefault: {r: 0.44705883, g: 0.46666667, b: 0.5686275, a: 1}
+  colorChanged: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &612387445
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,6 +1363,7 @@ MonoBehaviour:
   stageDataPath: 
   blockManager: {fileID: 1217056390}
   ball: {fileID: 350246235}
+  popupClear: {fileID: 1554118765}
 --- !u!4 &672495006
 Transform:
   m_ObjectHideFlags: 0
@@ -1432,7 +1469,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1000040168}
   m_Layer: 5
-  m_Name: Can
+  m_Name: Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1449,8 +1486,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1538364936}
   - {fileID: 310591091}
+  - {fileID: 1538364936}
   - {fileID: 566125690}
   m_Father: {fileID: 551918939}
   m_RootOrder: 3
@@ -2291,8 +2328,9 @@ GameObject:
   - component: {fileID: 1538364936}
   - component: {fileID: 1538364938}
   - component: {fileID: 1538364937}
+  - component: {fileID: 1538364939}
   m_Layer: 5
-  m_Name: Can2
+  m_Name: Star2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2310,7 +2348,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1000040168}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2330,7 +2368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.44705883, g: 0.46666667, b: 0.5686275, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2354,6 +2392,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538364935}
   m_CullTransparentMesh: 0
+--- !u!114 &1538364939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538364935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0fa1492096c2e42aae9fff11c4aac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteDefault: {fileID: 21300000, guid: 77ec977f6cdcc4522b454eda61a4a5fe, type: 3}
+  spriteChanged: {fileID: 21300000, guid: 566d04e0a7efe46efbfdc5b9a32a133e, type: 3}
+  changeColorEnable: 1
+  colorDefault: {r: 0.44705883, g: 0.46666667, b: 0.5686275, a: 1}
+  colorChanged: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1554118760
 GameObject:
   m_ObjectHideFlags: 0
@@ -2367,6 +2422,7 @@ GameObject:
   - component: {fileID: 1554118762}
   - component: {fileID: 1554118761}
   - component: {fileID: 1554118765}
+  - component: {fileID: 1554118766}
   m_Layer: 5
   m_Name: UIPopup
   m_TagString: Untagged
@@ -2466,9 +2522,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98595ea3ed6fd8e4189beac9ea1481fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imageStars:
+  - {fileID: 310591094}
+  - {fileID: 1538364939}
+  - {fileID: 566125693}
   btnRetry: {fileID: 1342097609}
   btnExit: {fileID: 1107802163}
   btnNext: {fileID: 2008394500}
+--- !u!111 &1554118766
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554118760}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: da628cd339fd57b478232607df674524, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: da628cd339fd57b478232607df674524, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1633357934
 GameObject:
   m_ObjectHideFlags: 0

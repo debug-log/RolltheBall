@@ -9,6 +9,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     public BlockManager blockManager;
     public Ball ball;
+    public UIPopupClear popupClear;
 
     private int numStars = 0;
 
@@ -54,7 +55,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void InvokeStageEndEvent()
     {
-        Debug.Log ("Success");
+        popupClear.Activate (this.numStars);
     }
 
     public int GetNumStars()

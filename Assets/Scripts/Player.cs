@@ -7,6 +7,7 @@ public class Player : Singleton<Player>
 {
     private PlayerData playerData;
     private int selectedStageId = 101;
+    private int nextStageId = 101;
 
     private void InitPlayerData()
     {
@@ -36,6 +37,8 @@ public class Player : Singleton<Player>
         {
             InitPlayerData ();
         }
+
+        SetNextStageId ();
     }
 
     public void SavePlayerData()
@@ -48,6 +51,30 @@ public class Player : Singleton<Player>
         InitPlayerData ();
     }
 
+    private void SetNextStageId()
+    {
+        int prevStageId = 101;
+        foreach (var data in playerData.stageDatas)
+        {
+            if (data.cleared == false)
+            {
+                nextStageId = prevStageId;
+                break;
+            }
+            prevStageId = data.stageId;
+        }
+    }
+
+    public int GetNextStageId()
+    {
+        return this.nextStageId;
+    }
+
+    public int GetNextStageMainId()
+    {
+        return this.nextStageId / 100;
+    }
+    
     public int GetPlayerSelectedStageId()
     {
         return selectedStageId;
