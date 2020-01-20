@@ -90,7 +90,7 @@ public class Player : Singleton<Player>
         }
     }
 
-    public int GetNextStageId()
+    public int GetPlayerNextStageId()
     {
         return this.nextStageId;
     }

@@ -18,7 +18,7 @@ public class StageManager : MonoSingleton<StageManager>
     {
         Player.Instance.LoadPlayerData ();
         StageInfo.Instance.LoadStageInfoData ();
-
+        
         SetupStage ();
     }
 

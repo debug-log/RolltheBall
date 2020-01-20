@@ -53,7 +53,7 @@ public class SceneTitle : MonoBehaviour
 
     private void InitStageText ()
     {
-        int nextStageId = Player.Instance.GetNextStageId ();
+        int nextStageId = Player.Instance.GetPlayerNextStageId ();
         string mainStageTitle = StageInfo.Instance.GetMainStageName (Player.Instance.GetNextStageMainId ());
         textStageDesc.text = string.Format ("{0} {1:D2}", mainStageTitle, nextStageId % 100);
     }

@@ -39,6 +39,12 @@ public class UIPopupClear : UIPopup
 
     private void OnClickNextButton()
     {
+        int nextSceneId = Player.Instance.GetPlayerHasNextStage (Player.Instance.GetPlayerSelectedStageId ());
+        if (nextSceneId != 0)
+        {
+            Player.Instance.SetPlayerSelectedStageId (nextSceneId);
+        }
 
+        SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
     }
 }
