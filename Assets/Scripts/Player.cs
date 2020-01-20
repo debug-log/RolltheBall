@@ -14,17 +14,35 @@ public class Player : Singleton<Player>
         playerData = new PlayerData ();
         playerData.stageDatas = new List<StageData> ();
 
-        //나중에 파일로 초기화하도록 변경
-        for(int stageId = 101; stageId <= 120; stageId++)
+        var csvFile = Resources.Load ("Stages/stage_init") as TextAsset;
+        if (csvFile == null)
         {
-            if(stageId == 101)
+            return;
+        }
+
+        var lines = csvFile.text.Split ('\n');
+        foreach (var line in lines)
+        {
+            if (string.IsNullOrEmpty (line))
             {
-                var stageData = new StageData (stageId);
-                stageData.cleared = true;
-                playerData.stageDatas.Add (stageData);
                 continue;
             }
-            playerData.stageDatas.Add (new StageData (stageId));
+
+            var cols = line.Split (',');
+            if (cols.Length < 2)
+            {
+                continue;
+            }
+
+            int stageId = int.Parse (cols[0]);
+            bool cleared = bool.Parse (cols[1]);
+            int numStars = int.Parse (cols[2]);
+
+            var stageData = new StageData (stageId);
+            stageData.cleared = cleared;
+            stageData.numStars = numStars;
+
+            playerData.stageDatas.Add (stageData);
         }
 
         SavePlayerData ();

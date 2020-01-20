@@ -12,8 +12,8 @@ public class SceneMain : MonoBehaviour
 
     private void Start ()
     {
-        Player.Instance.ResetPlayerData ();
         Player.Instance.LoadPlayerData ();
+        StageInfo.Instance.LoadStageInfoData ();
 
         textStageTitle.text = StageInfo.Instance.GetMainStageName (Player.Instance.GetPlayerSelectedMainStageId ());
 

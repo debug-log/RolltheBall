@@ -16,6 +16,7 @@ public class SceneTitle : MonoBehaviour
     void Start()
     {
         Player.Instance.LoadPlayerData ();
+        StageInfo.Instance.LoadStageInfoData ();
 
         btnStage.onClick.AddListener (OnClickButtonStage);
         btnGame.onClick.AddListener (OnClickButtonGame);
