@@ -183,6 +183,17 @@ public class Player : Singleton<Player>
 
         return null;
     }
+
+    public bool IsPlayerStageDataCleared (int stageId)
+    {
+        var stageData =  GetPlayerStageData (stageId);
+        if (stageData != null)
+        {
+            return stageData.cleared;
+        }
+
+        return false;
+    }
 }
 
 [Serializable]

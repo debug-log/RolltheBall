@@ -9,6 +9,7 @@ public class SceneMain : MonoBehaviour
     public Button backBtn;
     public Text textStageTitle;
     public UIStageBox[] stageBoxes;
+    public UIPopupStage popupStage;
 
     private void Start ()
     {
@@ -42,7 +43,18 @@ public class SceneMain : MonoBehaviour
 
     private void OnClickStageBox(int boxId)
     {
-        Debug.Log (boxId);
+        int stageId = Player.Instance.GetPlayerSelectedMainStageId () * 100 + boxId;
+        if (Player.Instance.IsPlayerStageDataCleared(stageId) == false)
+        {
+            popupStage.SetStageContentTextDisabled (stageId);
+            popupStage.Open ();
+            return;
+        }
+
+        Player.Instance.SetPlayerSelectedStageId (stageId);
+
+        popupStage.SetStageContentText (stageId);
+        popupStage.Open ();
     }
 
     private void OnClickBackButton()
