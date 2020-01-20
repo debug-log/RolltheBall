@@ -8,11 +8,12 @@ public class Player : Singleton<Player>
     private PlayerData playerData;
     private int selectedStageId = 101;
     private int nextStageId = 101;
+    private bool loadedPlayerData = false;
 
     private void InitPlayerData()
     {
         playerData = new PlayerData ();
-        playerData.stageDatas = new List<StageData> ();
+        playerData.stageDatas = new Dictionary<int, StageData> ();
 
         var csvFile = Resources.Load ("Stages/stage_init") as TextAsset;
         if (csvFile == null)
@@ -42,7 +43,7 @@ public class Player : Singleton<Player>
             stageData.cleared = cleared;
             stageData.numStars = numStars;
 
-            playerData.stageDatas.Add (stageData);
+            playerData.stageDatas.Add (stageId, stageData);
         }
 
         SavePlayerData ();
@@ -50,12 +51,18 @@ public class Player : Singleton<Player>
     
     public void LoadPlayerData()
     {
+        if (loadedPlayerData == true)
+        {
+            return;
+        }
+
         playerData = DataManager.LoadData<PlayerData> ("player.dat");
         if(playerData == null)
         {
             InitPlayerData ();
         }
 
+        loadedPlayerData = true;
         SetNextStageId ();
     }
 
@@ -74,12 +81,12 @@ public class Player : Singleton<Player>
         int prevStageId = 101;
         foreach (var data in playerData.stageDatas)
         {
-            if (data.cleared == false)
+            if (data.Value.cleared == false)
             {
                 nextStageId = prevStageId;
                 break;
             }
-            prevStageId = data.stageId;
+            prevStageId = data.Value.stageId;
         }
     }
 
@@ -88,6 +95,23 @@ public class Player : Singleton<Player>
         return this.nextStageId;
     }
 
+    public int GetPlayerHasNextStage (int stageId)
+    {
+        var stageData = playerData.stageDatas;
+        if (stageData.ContainsKey (stageId + 1) == true)
+        {
+            return stageId + 1;
+        }
+
+        var nextMainStageId = (stageId / 100) + 1;
+        if (stageData.ContainsKey (nextMainStageId * 100 + 1))
+        {
+            return nextMainStageId * 100 + 1;
+        }
+
+        return 0;
+    }
+    
     public int GetNextStageMainId()
     {
         return this.nextStageId / 100;
@@ -113,26 +137,58 @@ public class Player : Singleton<Player>
         this.selectedStageId = stageId;
     }
 
+    public void SetPlayerSelectedStageInfo (bool cleared, int numStars)
+    {
+        var stageData = GetPlayerStageData (this.selectedStageId);
+        if (stageData != null)
+        {
+            //check next stage is opened
+            int nextStageId = GetPlayerHasNextStage (stageData.stageId);
+            if (nextStageId != 0)
+            {
+                var nextStageData = GetPlayerStageData (nextStageId);
+                if (nextStageData.cleared == false)
+                {
+                    nextStageData.cleared = true;
+                    this.nextStageId = nextStageId;
+                }
+            }
+
+            stageData.cleared = cleared;
+            stageData.numStars = numStars;
+        }
+    }
+
     public List<StageData> GetPlayerStageDataList(int mainStage)
     {
         List<StageData> stageData = new List<StageData> ();
 
         foreach(var data in playerData.stageDatas)
         {
-            if(data.stageId / 100 == mainStage)
+            if(data.Value.stageId / 100 == mainStage)
             {
-                stageData.Add (data);
+                stageData.Add (data.Value);
             }
         }
 
         return stageData;
+    }
+
+    public StageData GetPlayerStageData (int stageId)
+    {
+        if (playerData.stageDatas.ContainsKey (stageId))
+        {
+            return playerData.stageDatas[stageId];
+        }
+
+        return null;
     }
 }
 
 [Serializable]
 public class PlayerData
 {
-    public List<StageData> stageDatas;
+    public Dictionary<int, StageData> stageDatas;
 }
 
 [Serializable]
