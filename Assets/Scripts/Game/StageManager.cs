@@ -10,11 +10,15 @@ public class StageManager : MonoSingleton<StageManager>
     public BlockManager blockManager;
     public Ball ball;
     public UIPopupClear popupClear;
+    public UIPopupFail popupFail;
 
     private int numStars = 0;
 
     private void Start ()
     {
+        Player.Instance.LoadPlayerData ();
+        StageInfo.Instance.LoadStageInfoData ();
+
         SetupStage ();
     }
 
@@ -55,7 +59,16 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void InvokeStageEndEvent()
     {
-        popupClear.Activate (this.numStars);
+        if (this.numStars > 1)
+        {
+            popupClear.Activate (this.numStars);
+            Player.Instance.SetPlayerSelectedStageInfo (true, this.numStars);
+            Player.Instance.SavePlayerData ();
+        }
+        else
+        {
+            popupFail.Open ();
+        }
     }
 
     public int GetNumStars()
