@@ -1385,7 +1385,7 @@ GameObject:
   - component: {fileID: 755545625}
   - component: {fileID: 755545624}
   m_Layer: 5
-  m_Name: Deco (4)
+  m_Name: Deco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1407,7 +1407,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8, y: -454}
+  m_AnchoredPosition: {x: -250, y: -454}
   m_SizeDelta: {x: 146, y: 94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &755545624
@@ -1419,12 +1419,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 755545622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 971127c245f83fa4c9c55ff4f9d3f125, type: 3}
+  m_Script: {fileID: 11500000, guid: 693a96de9fb5f5c4fa2deaadf87cafa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites: []
-  frameSeconds: 0.5
-  loop: 0
+  sprites:
+  - {fileID: 21300000, guid: 346b28e1bff854124ba1f761296df7d7, type: 3}
+  - {fileID: 21300000, guid: 1663cac95e3ac4537bd12383efdc0eb3, type: 3}
+  frameSeconds: 0.2
+  loop: 1
+  moveSpeed: 50
+  spriteEnd: {fileID: 21300000, guid: a81d479b3d7db43ea8aeb2daddc220f3, type: 3}
 --- !u!114 &755545625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1447,7 +1451,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 346b28e1bff854124ba1f761296df7d7, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

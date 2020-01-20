@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIImageAnimation : MonoBehaviour
 {
-    private Image image;
+    protected Image image;
     public Sprite[] sprites;
 
     public float frameSeconds = 0.5f;
@@ -16,12 +16,12 @@ public class UIImageAnimation : MonoBehaviour
 
     private int curSpriteIndex = 0;
 
-    private void Start ()
+    protected virtual void Start ()
     {
         this.image = this.GetComponent<Image> ();
     }
 
-    private void Update ()
+    protected virtual void Update ()
     {
         if (this.image == null)
         {
