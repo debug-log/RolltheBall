@@ -48,6 +48,7 @@ public class SceneTitle : MonoBehaviour
 
     void OnClickButtonGame()
     {
+        Player.Instance.SetPlayerSelectedStageId (Player.Instance.GetPlayerNextStageId ());
         SceneManager.LoadScene (SceneName.SCENE_GAME);
     }
 

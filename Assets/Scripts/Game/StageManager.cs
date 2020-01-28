@@ -53,6 +53,7 @@ public class StageManager : MonoSingleton<StageManager>
         {
             stageDataPath = Player.Instance.GetPlayerSelectedStageName ();
         }
+
         blockManager.Init (stageDataPath);
         UIManager.Instance.SetStageText (stageDataPath);
     }
