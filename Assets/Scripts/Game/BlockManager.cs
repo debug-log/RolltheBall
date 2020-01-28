@@ -486,6 +486,9 @@ public class BlockManager : MonoBehaviour
 
         UnsetBlock (cx, cy);
         SetBlock (block, tx, ty);
+
+        isSolution = false;
+        readyGameEndSeconds = 0f;
     }
 
     public void MoveEnd()
