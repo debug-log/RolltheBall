@@ -109,6 +109,20 @@ public class BlockManager : MonoBehaviour
                         if(prefabGoal != null)
                         {
                             subInstObject = GameObject.Instantiate (prefabGoal, instObject.transform, false);
+
+                            Direction dirGoal = GetDirectionFromSpriteName (spriteName);
+                            if (dirGoal == Direction.Left)
+                            {
+                                subInstObject.transform.localScale = new Vector3 (1f, 1f, 1f);
+                            }
+                            else if (dirGoal == Direction.Right || dirGoal == Direction.Down)
+                            {
+                                subInstObject.transform.localScale = new Vector3 (-1f, 1f, 1f);
+                            }
+                            else if (dirGoal == Direction.Up)
+                            {
+                                subInstObject.transform.localScale = new Vector3 (1f, -1f, 1f);
+                            }
                         }
                     }
                     else if(type.Equals("star"))
@@ -556,5 +570,28 @@ public class BlockManager : MonoBehaviour
         }
 
         return pathPoints;
+    }
+
+    private Direction GetDirectionFromSpriteName (string spriteName)
+    {
+        var words = spriteName.Split ('_');
+        if (words.Length != 3)
+        {
+            return Direction.Null;
+        }
+
+        switch (words[1][0])
+        {
+            case 'l':
+                return Direction.Left;
+            case 'r':
+                return Direction.Right;
+            case 'u':
+                return Direction.Up;
+            case 'd':
+                return Direction.Down;
+            default:
+                return Direction.Null;
+        }
     }
 }
