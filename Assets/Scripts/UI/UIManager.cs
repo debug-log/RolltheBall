@@ -13,12 +13,28 @@ public class UIManager : MonoSingleton<UIManager>
     public UIImageSwitcher[] imageStars;
 
     public UIPopup popupClear;
+    public UIPopup popupPause;
     public Text textStageId;
 
     private void Start ()
     {
         btnPause.onClick.AddListener (OnClickPauseButton);
         btnReset.onClick.AddListener (OnClickResetButton);
+    }
+
+    private void Update ()
+    {
+        if (Input.GetKeyDown (KeyCode.Escape))
+        {
+            if (popupPause.IsOpened ())
+            {
+                OnGameResumed ();
+            }
+            else
+            {
+                OnGamePaused ();
+            }
+        }
     }
 
     public void SetStageText(string stageName)
@@ -60,10 +76,12 @@ public class UIManager : MonoSingleton<UIManager>
     private void OnGamePaused()
     {
         imagePause.SetImageChanged ();
+        popupPause.Open ();
     }
 
     private void OnGameResumed()
     {
         imagePause.SetImageDefault ();
+        popupPause.Close ();
     }
 }
