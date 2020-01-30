@@ -300,7 +300,39 @@ public class BlockManager : MonoBehaviour
 
             if (curBlock.Equals (endPoint))
             {
-                return true;
+                bool isSolution = false;
+
+                switch (direction)
+                {
+                    case BlockDirectionType.Up:
+                        if (fromDirection == Direction.Up)
+                        {
+                            isSolution = true;
+                        }
+                        break;
+                    case BlockDirectionType.Down:
+                        if (fromDirection == Direction.Down)
+                        {
+                            isSolution = true;
+                        }
+                        break;
+                    case BlockDirectionType.Left:
+                        if (fromDirection == Direction.Left)
+                        {
+                            isSolution = true;
+                        }
+                        break;
+                    case BlockDirectionType.Right:
+                        if (fromDirection == Direction.Right)
+                        {
+                            isSolution = true;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                return isSolution;
             }
             else if(curBlock.Equals(startPoint))
             {
