@@ -482,7 +482,7 @@ public class BlockManager : MonoBehaviour
     public Block GetBlock (int x, int y)
     {
         int index = y * 4 + x;
-        if (index > blocks.Length || index < 0)
+        if (index >= blocks.Length || index < 0)
             return null;
         return blocks[index];
     }
