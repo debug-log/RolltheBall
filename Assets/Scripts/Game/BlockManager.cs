@@ -148,7 +148,6 @@ public class BlockManager : MonoBehaviour
         InitFromScene ();
     }
 
-#if UNITY_EDITOR
     public void InitFromScene()
     {
         for(int i=0; i<transform.childCount; i++)
@@ -287,7 +286,6 @@ public class BlockManager : MonoBehaviour
         oy = j;
         return true;
     }
-#endif
 
 
     private bool CheckSolutionFound()
