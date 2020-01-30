@@ -225,7 +225,9 @@ public class BlockManager : MonoBehaviour
         var pathPoints = ProcBlocksToPathPoint (pathSolution);
         StageManager.Instance.ball.StartAlongPath (pathPoints);
 
-        foreach(var block in blocks)
+        UIManager.Instance.HideTopButtons ();
+
+        foreach (var block in blocks)
         {
             if(block != null)
             {

@@ -83,10 +83,10 @@ public class Player : Singleton<Player>
         {
             if (data.Value.cleared == false)
             {
-                nextStageId = prevStageId;
                 break;
             }
             prevStageId = data.Value.stageId;
+            nextStageId = prevStageId;
         }
     }
 

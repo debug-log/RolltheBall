@@ -19,4 +19,9 @@ public class UIPopup : MonoBehaviour
     {
         return this.gameObject.activeSelf;
     }
+
+    public void OpenWithDelay (float delay)
+    {
+        Invoke ("Open", delay);
+    }
 }

@@ -84,4 +84,10 @@ public class UIManager : MonoSingleton<UIManager>
         imagePause.SetImageDefault ();
         popupPause.Close ();
     }
+
+    public void HideTopButtons ()
+    {
+        btnPause.gameObject.SetActive (false);
+        btnReset.gameObject.SetActive (false);
+    }
 }

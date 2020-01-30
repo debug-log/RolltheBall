@@ -10,9 +10,11 @@ public class UIPopupClear : UIPopup
     public Button btnExit;
     public Button btnNext;
 
+    public Text textNext;
+
     public void Activate (int numStars)
     {
-        this.gameObject.SetActive (true);
+        this.OpenWithDelay (1f);
 
         for (int i = 0; i < numStars && i < imageStars.Length; i++)
         {
@@ -22,6 +24,13 @@ public class UIPopupClear : UIPopup
 
     private void Start ()
     {
+        int nextSceneId = Player.Instance.GetPlayerHasNextStage (Player.Instance.GetPlayerSelectedStageId ());
+        if (nextSceneId == 0)
+        {
+            btnNext.interactable = false;
+            textNext.text = "...";
+        }
+
         btnRetry.onClick.AddListener (OnClickRetryButton);
         btnExit.onClick.AddListener (OnClickExitButton);
         btnNext.onClick.AddListener (OnClickNextButton);

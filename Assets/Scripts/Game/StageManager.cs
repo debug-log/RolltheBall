@@ -63,6 +63,7 @@ public class StageManager : MonoSingleton<StageManager>
         if (this.numStars >= 1)
         {
             popupClear.Activate (this.numStars);
+
             Player.Instance.SetPlayerSelectedStageInfo (true, this.numStars);
             Player.Instance.SavePlayerData ();
         }
