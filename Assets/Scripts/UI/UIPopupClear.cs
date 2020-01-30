@@ -14,7 +14,7 @@ public class UIPopupClear : UIPopup
 
     public void Activate (int numStars)
     {
-        this.OpenWithDelay (1f);
+        this.OpenWithDelay (0.5f);
 
         for (int i = 0; i < numStars && i < imageStars.Length; i++)
         {

@@ -15,6 +15,7 @@ public class BlockManager : MonoBehaviour
     private Block endPoint = null;
 
     private List<Block> pathSolution = new List<Block> ();
+    private List<Block> remainBlocks = new List<Block> ();
     private bool isSolution = false;
     private bool completeSolution = false;
     private float readyGameEndSeconds = 0f;
@@ -226,6 +227,12 @@ public class BlockManager : MonoBehaviour
         StageManager.Instance.ball.StartAlongPath (pathPoints);
 
         UIManager.Instance.HideTopButtons ();
+        remainBlocks = FindRemainBlocks ();
+
+        foreach (var block in remainBlocks)
+        {
+            block.gameObject.SetActive (false);
+        }
 
         foreach (var block in blocks)
         {
@@ -627,5 +634,27 @@ public class BlockManager : MonoBehaviour
             default:
                 return Direction.Null;
         }
+    }
+
+    private List<Block> FindRemainBlocks ()
+    {
+        List<Block> retBlocks = new List<Block> ();
+
+        for (int i = 0; i < blocks.Length; i++)
+        {
+            if (blocks[i] == null)
+            {
+                continue;
+            }
+
+            if (pathSolution.Contains (blocks[i]) == true)
+            {
+                continue;
+            }
+
+            retBlocks.Add (blocks[i]);
+        }
+
+        return retBlocks;
     }
 }
