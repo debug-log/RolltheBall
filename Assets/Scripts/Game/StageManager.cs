@@ -60,7 +60,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void InvokeStageEndEvent()
     {
-        if (this.numStars > 1)
+        if (this.numStars >= 1)
         {
             popupClear.Activate (this.numStars);
             Player.Instance.SetPlayerSelectedStageInfo (true, this.numStars);
