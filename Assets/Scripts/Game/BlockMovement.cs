@@ -13,7 +13,7 @@ public class BlockMovement : MonoBehaviour
     }
 
     public float moveThreshold = 0.05f;
-    public float moveSpeed = 2f;
+    public float moveSpeed = 4f;
 
     private BlockManager blockManager;
     private Block block;
