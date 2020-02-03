@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 
 public class SceneMain : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class SceneMain : MonoBehaviour
             stageBoxes[i].button.onClick.AddListener (() => OnClickStageBox (boxId));
         }
         backBtn.onClick.AddListener (OnClickBackButton);
+
+        UnityAdsHelper.Instance.ShowBanner ();
     }
 
     private void Update ()

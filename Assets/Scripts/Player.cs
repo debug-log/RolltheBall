@@ -194,6 +194,11 @@ public class Player : Singleton<Player>
 
         return false;
     }
+
+    public bool GetShowOrNotUnityAdsPlay ()
+    {
+        return UnityEngine.Random.value > 0.5f;
+    }
 }
 
 [Serializable]

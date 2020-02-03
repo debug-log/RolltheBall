@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class UIPopupClear : UIPopup
 {
     public UIImageSwitcher[] imageStars;
+    public UnityAdsHelper unityAdsHelper;
 
     public Button btnRetry;
     public Button btnExit;
@@ -14,8 +15,11 @@ public class UIPopupClear : UIPopup
 
     public void Activate (int numStars)
     {
-        this.OpenWithDelay (0.5f);
+        OpenWithDelay (0.5f, () => SetActiveStarImages (numStars));
+    }
 
+    private void SetActiveStarImages (int numStars)
+    {
         for (int i = 0; i < numStars && i < imageStars.Length; i++)
         {
             imageStars[i].SetImageChanged ();
@@ -34,11 +38,21 @@ public class UIPopupClear : UIPopup
         btnRetry.onClick.AddListener (OnClickRetryButton);
         btnExit.onClick.AddListener (OnClickExitButton);
         btnNext.onClick.AddListener (OnClickNextButton);
+
+        unityAdsHelper = UnityAdsHelper.Instance;
     }
 
     private void OnClickRetryButton()
     {
-        SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+        bool unityAdsPlay = Player.Instance.GetShowOrNotUnityAdsPlay ();
+        if (unityAdsPlay)
+        {
+            unityAdsHelper.ShowAds (StartCurrentStage);
+        }
+        else
+        {
+            StartCurrentStage ();
+        }
     }
 
     private void OnClickExitButton ()
@@ -54,6 +68,24 @@ public class UIPopupClear : UIPopup
             Player.Instance.SetPlayerSelectedStageId (nextSceneId);
         }
 
+        bool unityAdsPlay = Player.Instance.GetShowOrNotUnityAdsPlay ();
+        if (unityAdsPlay)
+        {
+            unityAdsHelper.ShowAds (StartNextStage);
+        }
+        else
+        {
+            StartNextStage ();
+        }
+    }
+
+    private void StartCurrentStage ()
+    {
+        SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+    }
+
+    private void StartNextStage ()
+    {
         SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
     }
 }

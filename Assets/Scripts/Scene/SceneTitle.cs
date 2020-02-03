@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 
 public class SceneTitle : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class SceneTitle : MonoBehaviour
         btnGame.onClick.AddListener (OnClickButtonGame);
 
         InitStageText ();
+
+        UnityAdsHelper.Instance.HideBanner ();
     }
 
     void Update()
