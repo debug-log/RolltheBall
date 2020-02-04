@@ -133,7 +133,7 @@ public class StageMaker : MonoBehaviour
 
         for (float dx = -1.5f * BlockManager.BLOCK_WIDTH; dx <= 1.5f * BlockManager.BLOCK_WIDTH; dx += BlockManager.BLOCK_WIDTH, i++)
         {
-            if (dx == x)
+            if (Mathf.Approximately (dx, x) == true)
             {
                 valid = true;
                 break;
@@ -151,7 +151,7 @@ public class StageMaker : MonoBehaviour
 
         for (float dy = -1.5f * BlockManager.BLOCK_HEIGHT; dy <= 1.5f * BlockManager.BLOCK_HEIGHT; dy += BlockManager.BLOCK_HEIGHT, j++)
         {
-            if (dy == y)
+            if (Mathf.Approximately (dy, y) == true)
             {
                 valid = true;
                 break;

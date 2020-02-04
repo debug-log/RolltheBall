@@ -41,7 +41,7 @@ public class UIPopupClear : UIPopup
 
         unityAdsHelper = UnityAdsHelper.Instance;
 
-        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.Success);
     }
 
     private void OnClickRetryButton()

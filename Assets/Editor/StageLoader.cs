@@ -103,7 +103,9 @@ public class StageLoader : MonoBehaviour
             }
 
             instObject = GameObject.Instantiate (prefabBlock, blockManager.transform, false);
-            instObject.transform.localPosition = new Vector2 (-1.5f + BlockManager.BLOCK_WIDTH * col, -1.5f + BlockManager.BLOCK_HEIGHT * row);
+            instObject.transform.localPosition =new Vector2 (
+                -1.5f * BlockManager.BLOCK_WIDTH + BlockManager.BLOCK_WIDTH * col,
+                -1.5f * BlockManager.BLOCK_HEIGHT + BlockManager.BLOCK_HEIGHT * row);
             Undo.RegisterCreatedObjectUndo (instObject, "Loaded objects");
 
             Sprite sprite = Resources.Load<Sprite> (string.Format ("Blocks/{0}", spriteName));

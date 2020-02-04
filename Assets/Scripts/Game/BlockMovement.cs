@@ -12,11 +12,11 @@ public class BlockMovement : MonoBehaviour
         MoveEnd,
     }
 
-    private float moveThreshold = 0.05f;
+    private float moveThreshold = 0.1f;
 
-    private float minMoveSpeed = 0.2f;
+    private float minMoveSpeed = 0.5f;
     private float moveInitSpeed = 3f;
-    private float moveSpeed = 3f;
+    private float moveSpeed = 10f;
     private float movingTicks = 0f;
 
     private BlockManager blockManager;
@@ -71,7 +71,7 @@ public class BlockMovement : MonoBehaviour
         if(moveState == MoveState.Moving)
         {
             movingTicks += Time.deltaTime;
-            var localMoveSpeed = Mathf.Max (minMoveSpeed, Mathf.Cos (movingTicks * Mathf.PI));
+            var localMoveSpeed = Mathf.Max (minMoveSpeed, moveSpeed * Mathf.Cos (movingTicks * 1.8f));
             moveVelocity = (moveBeginVelocity * localMoveSpeed);
 
             Vector2 position2d = transform.position;
@@ -101,20 +101,20 @@ public class BlockMovement : MonoBehaviour
         switch (direction)
         {
             case Direction.Left:
-                moveVelocity = new Vector2 (-moveSpeed, 0f);
-                targetPosition = new Vector2 (transform.position.x - 1f, transform.position.y);
+                moveVelocity = new Vector2 (-1f, 0f);
+                targetPosition = new Vector2 (transform.position.x - BlockManager.BLOCK_WIDTH, transform.position.y);
                 break;
             case Direction.Right:
-                moveVelocity = new Vector2 (moveSpeed, 0f);
-                targetPosition = new Vector2 (transform.position.x + 1f, transform.position.y);
+                moveVelocity = new Vector2 (1f, 0f);
+                targetPosition = new Vector2 (transform.position.x + BlockManager.BLOCK_WIDTH, transform.position.y);
                 break;
             case Direction.Up:
-                moveVelocity = new Vector2 (0f, moveSpeed);
-                targetPosition = new Vector2 (transform.position.x, transform.position.y + 1f);
+                moveVelocity = new Vector2 (0f, 1f);
+                targetPosition = new Vector2 (transform.position.x, transform.position.y + BlockManager.BLOCK_HEIGHT);
                 break;
             case Direction.Down:
-                moveVelocity = new Vector2 (0f, -moveSpeed);
-                targetPosition = new Vector2 (transform.position.x, transform.position.y - 1f);
+                moveVelocity = new Vector2 (0f, -1f);
+                targetPosition = new Vector2 (transform.position.x, transform.position.y - BlockManager.BLOCK_HEIGHT);
                 break;
         }
     }

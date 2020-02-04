@@ -13,6 +13,7 @@ public class AudioInfo : Singleton<AudioInfo>
         Star3,
 
         Fail,
+        Success,
 
         UiTap,
 
@@ -28,6 +29,7 @@ public class AudioInfo : Singleton<AudioInfo>
         { AudioType.Star3, "star3" },
 
         { AudioType.Fail, "die" },
+        { AudioType.Success, "clear" },
 
         { AudioType.UiTap, "tap" },
     };

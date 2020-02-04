@@ -6,8 +6,8 @@ public class BlockManager : MonoBehaviour
 {
     private static int BLOCK_ROW_AND_COL_COUNT = 4;
 
-    public static float BLOCK_WIDTH = 1.0f;
-    public static float BLOCK_HEIGHT = 1.0f;
+    public static float BLOCK_WIDTH = 1.61f;
+    public static float BLOCK_HEIGHT = 1.61f;
 
     private const float SOLUTION_READY_SECONDS = 0.7f;
 
@@ -78,7 +78,7 @@ public class BlockManager : MonoBehaviour
             }
 
             instObject = GameObject.Instantiate (prefabBlock, this.transform, false);
-            instObject.transform.localPosition = new Vector2 (-1.5f + BLOCK_WIDTH * col, -1.5f + BLOCK_HEIGHT * row);
+            instObject.transform.localPosition = new Vector2 (-1.5f * BLOCK_WIDTH + BLOCK_WIDTH * col, -1.5f * BLOCK_HEIGHT + BLOCK_HEIGHT * row);
 
             Sprite sprite = Resources.Load<Sprite> (string.Format ("Blocks/{0}", spriteName));
 
@@ -252,7 +252,7 @@ public class BlockManager : MonoBehaviour
 
         for (float dx = -1.5f * BLOCK_WIDTH; dx <= 1.5f * BLOCK_WIDTH; dx += BLOCK_WIDTH, i++)
         {
-            if (dx == x)
+            if (Mathf.Approximately(dx, x) == true)
             {
                 valid = true;
                 break;
@@ -270,7 +270,7 @@ public class BlockManager : MonoBehaviour
 
         for (float dy = -1.5f * BLOCK_HEIGHT; dy <= 1.5f * BLOCK_HEIGHT; dy += BLOCK_HEIGHT, j++)
         {
-            if (dy == y)
+            if (Mathf.Approximately (dy, y) == true)
             {
                 valid = true;
                 break;
