@@ -230,7 +230,7 @@ public class BlockManager : MonoBehaviour
 
         foreach (var block in remainBlocks)
         {
-            block.gameObject.SetActive (false);
+            block.SetBlockDimmed ();
         }
 
         foreach (var block in blocks)

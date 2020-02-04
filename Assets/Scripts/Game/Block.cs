@@ -49,4 +49,13 @@ public class Block : MonoBehaviour
     {
         this.blockDirectionType = blockDirectionType;
     }
+
+    public void SetBlockDimmed ()
+    {
+        var sr = this.GetComponent<SpriteRenderer> ();
+        if (sr != null)
+        {
+            sr.color = Color.gray;
+        }
+    }
 }
