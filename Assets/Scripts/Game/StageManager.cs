@@ -21,7 +21,10 @@ public class StageManager : MonoSingleton<StageManager>
         
         SetupStage ();
 
-        UnityAdsHelper.Instance.ShowBanner ();
+        if (UnityAdsHelper.Instance != null)
+        {
+            UnityAdsHelper.Instance.ShowBanner ();
+        }
     }
 
     private void SetupStage ()

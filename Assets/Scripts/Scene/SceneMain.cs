@@ -33,7 +33,10 @@ public class SceneMain : MonoBehaviour
         }
         backBtn.onClick.AddListener (OnClickBackButton);
 
-        UnityAdsHelper.Instance.ShowBanner ();
+        if (UnityAdsHelper.Instance != null)
+        {
+            UnityAdsHelper.Instance.ShowBanner ();
+        }
     }
 
     private void Update ()

@@ -45,7 +45,7 @@ public class UIPopupClear : UIPopup
     private void OnClickRetryButton()
     {
         bool unityAdsPlay = Player.Instance.GetShowOrNotUnityAdsPlay ();
-        if (unityAdsPlay)
+        if (unityAdsPlay && unityAdsHelper != null)
         {
             unityAdsHelper.ShowAds (StartCurrentStage);
         }
@@ -69,7 +69,7 @@ public class UIPopupClear : UIPopup
         }
 
         bool unityAdsPlay = Player.Instance.GetShowOrNotUnityAdsPlay ();
-        if (unityAdsPlay)
+        if (unityAdsPlay && unityAdsHelper != null)
         {
             unityAdsHelper.ShowAds (StartNextStage);
         }
