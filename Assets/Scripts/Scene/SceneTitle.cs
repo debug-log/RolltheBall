@@ -35,10 +35,12 @@ public class SceneTitle : MonoBehaviour
             if (popupExit.IsOpened () == true)
             {
                 popupExit.Close ();
+                AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
             }
             else
             {
                 popupExit.Open ();
+                AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
             }
         }
     }
@@ -47,12 +49,14 @@ public class SceneTitle : MonoBehaviour
     void OnClickButtonStage()
     {
         SceneManager.LoadScene (SceneName.SCENE_MAIN);
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     void OnClickButtonGame()
     {
         Player.Instance.SetPlayerSelectedStageId (Player.Instance.GetPlayerNextStageId ());
         SceneManager.LoadScene (SceneName.SCENE_GAME);
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     private void InitStageText ()

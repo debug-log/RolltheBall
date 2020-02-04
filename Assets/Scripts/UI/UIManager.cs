@@ -59,6 +59,7 @@ public class UIManager : MonoSingleton<UIManager>
     private void OnClickResetButton()
     {
         SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     private void OnClickPauseButton()
@@ -77,12 +78,14 @@ public class UIManager : MonoSingleton<UIManager>
     {
         imagePause.SetImageChanged ();
         popupPause.Open ();
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     private void OnGameResumed()
     {
         imagePause.SetImageDefault ();
         popupPause.Close ();
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     public void HideTopButtons ()

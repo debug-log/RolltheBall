@@ -49,6 +49,20 @@ public class Ball : MonoBehaviour
             stageManager.IncreaseNumStars ();
 
             star.enabled = false;
+
+            int randomValue = Random.Range (0, 3);
+            switch (randomValue)
+            {
+                case 0:
+                    AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.Star1);
+                    break;
+                case 1:
+                    AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.Star2);
+                    break;
+                case 2:
+                    AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.Star3);
+                    break;
+            }
         }
     }
 

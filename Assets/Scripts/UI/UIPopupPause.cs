@@ -18,10 +18,12 @@ public class UIPopupPause : UIPopup
     private void OnClickCancelButton ()
     {
         this.Close ();
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     private void OnClickExitButton ()
     {
         SceneManager.LoadScene (SceneName.SCENE_MAIN);
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 }

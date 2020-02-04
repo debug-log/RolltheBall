@@ -40,6 +40,8 @@ public class UIPopupClear : UIPopup
         btnNext.onClick.AddListener (OnClickNextButton);
 
         unityAdsHelper = UnityAdsHelper.Instance;
+
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     private void OnClickRetryButton()
@@ -53,11 +55,13 @@ public class UIPopupClear : UIPopup
         {
             StartCurrentStage ();
         }
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     private void OnClickExitButton ()
     {
         SceneManager.LoadScene (SceneName.SCENE_MAIN);
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     private void OnClickNextButton()
@@ -77,6 +81,7 @@ public class UIPopupClear : UIPopup
         {
             StartNextStage ();
         }
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     private void StartCurrentStage ()

@@ -42,16 +42,19 @@ public class UIPopupStage : UIPopup
     private void OnClickStartButton ()
     {
         SceneManager.LoadScene (SceneName.SCENE_GAME);
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     private void OnClickCancelButton ()
     {
         Close ();
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     private void OnClickOkButton ()
     {
         Close ();
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     public void SetStageContentTextDisabled (int stageId)

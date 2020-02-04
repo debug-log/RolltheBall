@@ -61,10 +61,13 @@ public class SceneMain : MonoBehaviour
 
         popupStage.SetStageContentText (stageId);
         popupStage.Open ();
+
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     private void OnClickBackButton()
     {
         SceneManager.LoadScene (SceneName.SCENE_TITLE);
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 }

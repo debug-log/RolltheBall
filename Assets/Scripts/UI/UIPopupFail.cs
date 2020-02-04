@@ -11,15 +11,18 @@ public class UIPopupFail : UIPopup
     {
         btnRetry.onClick.AddListener (OnClickRetryButton);
         btnExit.onClick.AddListener (OnClickExitButton);
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.Fail);
     }
 
     private void OnClickRetryButton ()
     {
         SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 
     private void OnClickExitButton ()
     {
         SceneManager.LoadScene (SceneName.SCENE_MAIN);
+        AudioManager.Instance.PlayAudioEffect (AudioInfo.AudioType.UiTap);
     }
 }
