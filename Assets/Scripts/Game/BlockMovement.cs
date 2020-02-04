@@ -12,14 +12,19 @@ public class BlockMovement : MonoBehaviour
         MoveEnd,
     }
 
-    public float moveThreshold = 0.05f;
-    public float moveSpeed = 4f;
+    private float moveThreshold = 0.05f;
+
+    private float minMoveSpeed = 0.2f;
+    private float moveInitSpeed = 3f;
+    private float moveSpeed = 3f;
+    private float movingTicks = 0f;
 
     private BlockManager blockManager;
     private Block block;
 
     private Vector2 screenSize;
     private Vector2 moveVelocity;
+    private Vector2 moveBeginVelocity;
     private Vector2 mousePositionDown;
     private Vector2 targetPosition;
     private MoveState moveState;
@@ -59,15 +64,20 @@ public class BlockMovement : MonoBehaviour
         if(moveState == MoveState.MoveBegin)
         {
             moveState = MoveState.Moving;
+            moveBeginVelocity = moveVelocity;
             return;
         }
 
         if(moveState == MoveState.Moving)
         {
+            movingTicks += Time.deltaTime;
+            var localMoveSpeed = Mathf.Max (minMoveSpeed, Mathf.Cos (movingTicks * Mathf.PI));
+            moveVelocity = (moveBeginVelocity * localMoveSpeed);
+
             Vector2 position2d = transform.position;
             position2d += moveVelocity * deltaTime;
 
-            if(Vector2.Distance(position2d, targetPosition) < moveSpeed * deltaTime)
+            if(Vector2.Distance(position2d, targetPosition) < 2 * localMoveSpeed * deltaTime)
             {
                 moveState = MoveState.MoveEnd;
                 position2d = targetPosition;
@@ -85,6 +95,8 @@ public class BlockMovement : MonoBehaviour
         }
 
         moveState = MoveState.MoveBegin;
+        moveSpeed = moveInitSpeed;
+        movingTicks = 0f;
 
         switch (direction)
         {
