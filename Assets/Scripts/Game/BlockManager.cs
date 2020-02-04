@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class BlockManager : MonoBehaviour
 {
+    private static int BLOCK_ROW_AND_COL_COUNT = 4;
+
     public static float BLOCK_WIDTH = 1.0f;
     public static float BLOCK_HEIGHT = 1.0f;
 
-    private const float SOLUTION_READY_SECONDS = 0.5f;
+    private const float SOLUTION_READY_SECONDS = 0.7f;
 
     private Block[] blocks = new Block[16];
 
@@ -22,13 +24,13 @@ public class BlockManager : MonoBehaviour
 
     public void Init (string stageDataPath)
     {
-        if(string.IsNullOrEmpty(stageDataPath) == true)
+        if (string.IsNullOrEmpty (stageDataPath) == true)
         {
             return;
         }
 
         var csvFile = Resources.Load (string.Format ("Stages/{0}", stageDataPath)) as TextAsset;
-        if(csvFile == null)
+        if (csvFile == null)
         {
             return;
         }
@@ -36,9 +38,9 @@ public class BlockManager : MonoBehaviour
         var lines = csvFile.text.Split ('\n');
         int index = 0;
         bool continued = false;
-        foreach(var line in lines)
+        foreach (var line in lines)
         {
-            if(continued == true)
+            if (continued == true)
             {
                 continued = false;
                 index++;
@@ -50,7 +52,7 @@ public class BlockManager : MonoBehaviour
             }
 
             var replacedLine = line.Replace ("\r", "");
-            if (string.IsNullOrEmpty(replacedLine) || replacedLine.Equals("null"))
+            if (string.IsNullOrEmpty (replacedLine) || replacedLine.Equals ("null"))
             {
                 continued = true;
                 continue;
@@ -64,8 +66,8 @@ public class BlockManager : MonoBehaviour
             if (datas.Length >= 2) subData = datas[1];
 
             var spriteName = data;
-            int col = index % 4;
-            int row = index / 4;
+            int col = index % BLOCK_ROW_AND_COL_COUNT;
+            int row = index / BLOCK_ROW_AND_COL_COUNT;
 
             GameObject prefabBlock = Resources.Load ("Prefabs/Block") as GameObject;
             GameObject instObject = null;
@@ -74,7 +76,7 @@ public class BlockManager : MonoBehaviour
                 continued = true;
                 continue;
             }
-            
+
             instObject = GameObject.Instantiate (prefabBlock, this.transform, false);
             instObject.transform.localPosition = new Vector2 (-1.5f + BLOCK_WIDTH * col, -1.5f + BLOCK_HEIGHT * row);
 
@@ -91,12 +93,12 @@ public class BlockManager : MonoBehaviour
                 instObject.GetComponent<SpriteRenderer> ().sprite = sprite;
             }
 
-            if (string.IsNullOrEmpty(subData) == false)
+            if (string.IsNullOrEmpty (subData) == false)
             {
                 subData = subData.Replace ("[", "").Replace ("]", "");
                 var subDatas = subData.Split (',');
 
-                if(subDatas.Length == 3)
+                if (subDatas.Length == 3)
                 {
                     var type = subDatas[0];
                     var posX = float.Parse (subDatas[1]);
@@ -104,10 +106,10 @@ public class BlockManager : MonoBehaviour
 
                     GameObject subInstObject = null;
 
-                    if (type.Equals("goal"))
+                    if (type.Equals ("goal"))
                     {
                         GameObject prefabGoal = Resources.Load ("Prefabs/Goal") as GameObject;
-                        if(prefabGoal != null)
+                        if (prefabGoal != null)
                         {
                             subInstObject = GameObject.Instantiate (prefabGoal, instObject.transform, false);
 
@@ -126,7 +128,7 @@ public class BlockManager : MonoBehaviour
                             }
                         }
                     }
-                    else if(type.Equals("star"))
+                    else if (type.Equals ("star"))
                     {
                         GameObject prefabStar = Resources.Load ("Prefabs/Star") as GameObject;
                         if (prefabStar != null)
@@ -135,7 +137,7 @@ public class BlockManager : MonoBehaviour
                         }
                     }
 
-                    if(subInstObject != null)
+                    if (subInstObject != null)
                     {
                         subInstObject.transform.localPosition = new Vector2 (posX, posY);
                     }
@@ -148,9 +150,9 @@ public class BlockManager : MonoBehaviour
         InitFromScene ();
     }
 
-    public void InitFromScene()
+    public void InitFromScene ()
     {
-        for(int i=0; i<transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             var child = this.transform.GetChild (i);
             if (child == null)
@@ -206,10 +208,10 @@ public class BlockManager : MonoBehaviour
 
     private void Update ()
     {
-        if(isSolution == true && completeSolution == false)
+        if (isSolution == true && completeSolution == false)
         {
             readyGameEndSeconds += Time.deltaTime;
-            if(readyGameEndSeconds >= SOLUTION_READY_SECONDS)
+            if (readyGameEndSeconds >= SOLUTION_READY_SECONDS)
             {
                 completeSolution = true;
 
@@ -220,7 +222,7 @@ public class BlockManager : MonoBehaviour
         }
     }
 
-    private void BeginMoveBall()
+    private void BeginMoveBall ()
     {
         var pathPoints = ProcBlocksToPathPoint (pathSolution);
         StageManager.Instance.ball.StartAlongPath (pathPoints);
@@ -235,29 +237,29 @@ public class BlockManager : MonoBehaviour
 
         foreach (var block in blocks)
         {
-            if(block != null)
+            if (block != null)
             {
                 block.blockMovement.enabled = false;
             }
         }
     }
 
-    private bool IsValidPosition(float x, float y, out int ox, out int oy)
+    private bool IsValidPosition (float x, float y, out int ox, out int oy)
     {
         int i = 0;
         int j = 0;
         bool valid = false;
 
-        for(float dx = -1.5f * BLOCK_WIDTH; dx <= 1.5f * BLOCK_WIDTH; dx += BLOCK_WIDTH, i++)
+        for (float dx = -1.5f * BLOCK_WIDTH; dx <= 1.5f * BLOCK_WIDTH; dx += BLOCK_WIDTH, i++)
         {
-            if(dx == x)
+            if (dx == x)
             {
                 valid = true;
                 break;
             }
         }
 
-        if(valid == false)
+        if (valid == false)
         {
             ox = -1;
             oy = -1;
@@ -268,7 +270,7 @@ public class BlockManager : MonoBehaviour
 
         for (float dy = -1.5f * BLOCK_HEIGHT; dy <= 1.5f * BLOCK_HEIGHT; dy += BLOCK_HEIGHT, j++)
         {
-            if(dy == y)
+            if (dy == y)
             {
                 valid = true;
                 break;
@@ -288,17 +290,18 @@ public class BlockManager : MonoBehaviour
     }
 
 
-    private bool CheckSolutionFound()
+    private bool CheckSolutionFound ()
     {
         var curBlock = startPoint;
         Direction fromDirection = Direction.Null;
         pathSolution.Clear ();
         int whileIterCount = 0;
+        int iterCountMax = BLOCK_ROW_AND_COL_COUNT * BLOCK_ROW_AND_COL_COUNT + BLOCK_ROW_AND_COL_COUNT;
 
-        while (curBlock != null && whileIterCount < 20)
+        while (curBlock != null && whileIterCount < iterCountMax)
         {
-            var x = (int)curBlock.currentPosition.x;
-            var y = (int)curBlock.currentPosition.y;
+            var x = (int) curBlock.currentPosition.x;
+            var y = (int) curBlock.currentPosition.y;
             var direction = curBlock.blockDirectionType;
 
             pathSolution.Add (curBlock);
@@ -341,9 +344,9 @@ public class BlockManager : MonoBehaviour
 
                 return isSolution;
             }
-            else if(curBlock.Equals(startPoint))
+            else if (curBlock.Equals (startPoint))
             {
-                switch(direction)
+                switch (direction)
                 {
                     case BlockDirectionType.Left:
                         nextBlock = GetBlock (x - 1, y);
@@ -378,7 +381,7 @@ public class BlockManager : MonoBehaviour
                                 nextBlock = GetBlock (x, y - 1);
                                 fromDirection = Direction.Up;
                             }
-                            else if(fromDirection == Direction.Down)
+                            else if (fromDirection == Direction.Down)
                             {
                                 nextBlock = GetBlock (x, y + 1);
                                 fromDirection = Direction.Down;
@@ -465,13 +468,18 @@ public class BlockManager : MonoBehaviour
             curBlock = nextBlock;
             whileIterCount++;
         }
-        
+
         return false;
     }
 
     public void SetBlock (Block target, int x, int y)
     {
-        int index = y * 4 + x;
+        if (x < 0 || x >= BLOCK_ROW_AND_COL_COUNT || y < 0 || y >= BLOCK_ROW_AND_COL_COUNT)
+        {
+            return;
+        }
+
+        int index = y * BLOCK_ROW_AND_COL_COUNT + x;
         if (index > blocks.Length)
             return;
         blocks[index] = target;
@@ -480,7 +488,12 @@ public class BlockManager : MonoBehaviour
 
     public void UnsetBlock (int x, int y)
     {
-        int index = y * 4 + x;
+        if (x < 0 || x >= BLOCK_ROW_AND_COL_COUNT || y < 0 || y >= BLOCK_ROW_AND_COL_COUNT)
+        {
+            return;
+        }
+
+        int index = y * BLOCK_ROW_AND_COL_COUNT + x;
         if (index > blocks.Length || index < 0)
             return;
         blocks[index] = null;
@@ -488,7 +501,12 @@ public class BlockManager : MonoBehaviour
 
     public Block GetBlock (int x, int y)
     {
-        int index = y * 4 + x;
+        if (x < 0 || x >= BLOCK_ROW_AND_COL_COUNT || y < 0 || y >= BLOCK_ROW_AND_COL_COUNT)
+        {
+            return null;
+        }
+
+        int index = y * BLOCK_ROW_AND_COL_COUNT + x;
         if (index >= blocks.Length || index < 0)
             return null;
         return blocks[index];
