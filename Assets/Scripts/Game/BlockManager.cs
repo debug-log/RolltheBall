@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BlockManager : MonoBehaviour
 {
-    private static int BLOCK_ROW_AND_COL_COUNT = 4;
+    public static int BLOCK_ROW_AND_COL_COUNT = 4;
 
     public static float BLOCK_WIDTH = 1.61f;
     public static float BLOCK_HEIGHT = 1.61f;
@@ -168,7 +168,6 @@ public class BlockManager : MonoBehaviour
                 float posY = block.transform.localPosition.y;
                 int x;
                 int y;
-
                 if (!IsValidPosition (posX, posY, out x, out y))
                 {
                     continue;

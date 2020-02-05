@@ -15,7 +15,7 @@ public class StageLoader : MonoBehaviour
         blockManager = GameObject.FindObjectOfType<BlockManager> ();
         if (blockManager == null)
         {
-            Debug.LogError ("StageManager does not exists.");
+            Debug.LogError ("BlockManager does not exists.");
             return;
         }
 
@@ -36,7 +36,7 @@ public class StageLoader : MonoBehaviour
         LoadStageDataFromCsvFile (filePath);
         SetUITitleText (filePath);
     }
-
+    
     private static void RemoveAllChildObjects (Transform transform)
     {
         int childCount = transform.childCount;

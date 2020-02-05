@@ -25,7 +25,7 @@ public class AudioManager : MonoSingleton <AudioManager>
     public void PlayAudioEffect (AudioInfo.AudioType audioType)
     {
         AudioClip audioClip = Resources.Load (string.Format ("Audios/{0}", AudioInfo.GetAudioName (audioType))) as AudioClip;
-        if (audioClip != null)
+        if (audioClip != null && this.audioSourceSfx != null)
         {
             this.audioSourceSfx.PlayOneShot (audioClip);
         }
