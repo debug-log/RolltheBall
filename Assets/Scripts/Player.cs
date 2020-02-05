@@ -230,7 +230,7 @@ public class Player : Singleton<Player>
             }
 
             stageData.cleared = cleared;
-            stageData.numStars = numStars;
+            stageData.numStars = Mathf.Max (stageData.numStars, numStars);
         }
     }
 
