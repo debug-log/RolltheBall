@@ -69,8 +69,7 @@ public class Ball : MonoBehaviour
     private void Move(PathPoint pathPoint)
     {
         Vector2 curPosition = transform.localPosition;
-
-        if(Vector2.Distance(targetPosition, curPosition) < 0.05f)
+        if (Vector2.Distance (targetPosition, curPosition) < 0.05f)
         {
             transform.localPosition = targetPosition;
             if(MoveToNextPoint () != true)
@@ -147,15 +146,15 @@ public class Ball : MonoBehaviour
             angleSpeed = Mathf.Abs (angleSpeed);
         }
 
-        if(lhs.x > 0f)
+        if (Mathf.Round (lhs.x) > 0f)
         {
             angle = 0f;
         }
-        else if(lhs.y > 0f)
+        else if (Mathf.Round (lhs.y) > 0f)
         {
             angle = 90f * Mathf.Deg2Rad;
         }
-        else if(lhs.x < 0f)
+        else if (Mathf.Round (lhs.x) < 0f)
         {
             angle = 180f * Mathf.Deg2Rad;
         }

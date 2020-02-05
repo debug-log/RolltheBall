@@ -12,7 +12,7 @@ public class BlockMovement : MonoBehaviour
         MoveEnd,
     }
 
-    private float moveThreshold = 0.1f;
+    private float moveThreshold = 0.05f;
 
     private float minMoveSpeed = 0.5f;
     private float moveInitSpeed = 3f;
