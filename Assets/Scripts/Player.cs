@@ -51,6 +51,7 @@ public class Player : Singleton<Player>
 
     private void UpdatePlayerStageInfos (StageInfoCsv stageInfoCsv)
     {
+        int prevStageId = 101;
         foreach (var mainStageId in stageInfoCsv.stageCountInfos.Keys)
         {
             for (int subStageId = 1; subStageId <= stageInfoCsv.stageCountInfos[mainStageId]; subStageId++)
@@ -59,11 +60,17 @@ public class Player : Singleton<Player>
 
                 if (playerData.stageDatas.ContainsKey (stageId))
                 {
+                    prevStageId = stageId;
                     continue;
                 }
 
                 var stageData = new StageData (stageId);
+                if (playerData.stageDatas[prevStageId].numStars >= 1)
+                {
+                    stageData.cleared = true;
+                }
                 playerData.stageDatas.Add (stageId, stageData);
+                prevStageId = stageId;
             }
         }
 
