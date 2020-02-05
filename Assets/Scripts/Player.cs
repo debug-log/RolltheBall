@@ -48,7 +48,29 @@ public class Player : Singleton<Player>
 
         SavePlayerData ();
     }
-    
+
+    private void UpdatePlayerStageInfos (StageInfoCsv stageInfoCsv)
+    {
+        foreach (var mainStageId in stageInfoCsv.stageCountInfos.Keys)
+        {
+            for (int subStageId = 1; subStageId <= stageInfoCsv.stageCountInfos[mainStageId]; subStageId++)
+            {
+                int stageId = mainStageId * 100 + subStageId;
+
+                if (playerData.stageDatas.ContainsKey (stageId))
+                {
+                    continue;
+                }
+
+                var stageData = new StageData (stageId);
+                playerData.stageDatas.Add (stageId, stageData);
+            }
+        }
+
+        playerData.stageDataVersion = stageInfoCsv.stageInfoVersion;
+        SavePlayerData ();
+    }
+        
     public void LoadPlayerData()
     {
         if (loadedPlayerData == true)
@@ -60,6 +82,12 @@ public class Player : Singleton<Player>
         if(playerData == null)
         {
             InitPlayerData ();
+        }
+
+        var stageInfoCsv = ReadStageInfoCsv ();
+        if (stageInfoCsv.stageInfoVersion > playerData.stageDataVersion)
+        {
+            UpdatePlayerStageInfos (stageInfoCsv);
         }
 
         loadedPlayerData = true;
@@ -74,6 +102,46 @@ public class Player : Singleton<Player>
     public void ResetPlayerData()
     {
         InitPlayerData ();
+    }
+
+    private StageInfoCsv ReadStageInfoCsv ()
+    {
+        var csvFile = Resources.Load ("Stages/stage_infos") as TextAsset;
+        if (csvFile == null)
+        {
+            return null;
+        }
+
+        StageInfoCsv stageInfoCsv = new StageInfoCsv ();
+        stageInfoCsv.stageCountInfos = new Dictionary<int, int> ();
+
+        var lines = csvFile.text.Split ('\n');
+        for (int lineCount = 0; lineCount < lines.Length; lineCount++)
+        {
+            var line = lines[lineCount];
+            if (string.IsNullOrEmpty (line))
+            {
+                continue;
+            }
+
+            if (lineCount == 0)
+            {
+                stageInfoCsv.stageInfoVersion = int.Parse (line);
+                continue;
+            }
+
+            var cols = line.Split (',');
+            if (cols.Length < 2)
+            {
+                continue;
+            }
+
+            int mainStageId = int.Parse (cols[0]);
+            int stageCount = int.Parse (cols[1]);
+
+            stageInfoCsv.stageCountInfos.Add (mainStageId, stageCount);
+        }
+        return stageInfoCsv;
     }
 
     private void SetNextStageId()
@@ -201,9 +269,16 @@ public class Player : Singleton<Player>
     }
 }
 
+public class StageInfoCsv
+{
+    public int stageInfoVersion;
+    public Dictionary<int, int> stageCountInfos;
+}
+
 [Serializable]
 public class PlayerData
 {
+    public int stageDataVersion;
     public Dictionary<int, StageData> stageDatas;
 }
 
