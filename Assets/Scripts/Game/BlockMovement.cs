@@ -15,8 +15,7 @@ public class BlockMovement : MonoBehaviour
     private float moveThreshold = 0.05f;
 
     private float minMoveSpeed = 0.5f;
-    private float moveInitSpeed = 3f;
-    private float moveSpeed = 10f;
+    private float moveSpeed = 5f;
     private float movingTicks = 0f;
 
     private BlockManager blockManager;
@@ -71,7 +70,7 @@ public class BlockMovement : MonoBehaviour
         if(moveState == MoveState.Moving)
         {
             movingTicks += Time.deltaTime;
-            var localMoveSpeed = Mathf.Max (minMoveSpeed, moveSpeed * Mathf.Cos (movingTicks * 1.8f));
+            var localMoveSpeed = Mathf.Max (minMoveSpeed, moveSpeed * Mathf.Cos (movingTicks * Mathf.PI));
             moveVelocity = (moveBeginVelocity * localMoveSpeed);
 
             Vector2 position2d = transform.position;
@@ -95,7 +94,6 @@ public class BlockMovement : MonoBehaviour
         }
 
         moveState = MoveState.MoveBegin;
-        moveSpeed = moveInitSpeed;
         movingTicks = 0f;
 
         switch (direction)
